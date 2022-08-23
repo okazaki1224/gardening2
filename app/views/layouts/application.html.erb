@@ -11,6 +11,22 @@
   </head>
 
   <body>
+    <header>
+      <%#= user_signed_in? %>
+      <% if user_signed_in? %>
+        ようこそ、<%= current_user.nickname %>さん！会員ページにログイン中
+        <%= link_to "投稿一覧", posts_path %>
+        <%= link_to "会員一覧", users_path %>
+        <%= link_to "新規投稿", new_post_path %>
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+
+      <% elsif admin_signed_in? %>
+        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+      <% else %>
+        <%= link_to "ログイン", new_user_session_path,class: 'nav-link text-black' %>
+      <% end %>
+
+    </header>
     <%= yield %>
   </body>
 </html>
