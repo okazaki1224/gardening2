@@ -1,2 +1,28 @@
-<h1>Public::Posts#index</h1>
-<p>Find me in app/views/public/posts/index.html.erb</p>
+<h1>投稿一覧</h1>
+<h3>左３か４使ってテンプレ表示</h3>
+
+<table>
+  <tr>
+    <td>
+    </td>
+  </tr>
+   <tr>
+    <td>
+    </td>
+  </tr>
+</table>
+
+<% @posts.each do |post| %>
+<div>
+  <%#= @genre.name %>
+  <%= link_to post_path(post.id) do %>
+    <%= post.title %>
+  <% end %>
+  <% if post.post_images.attached? %>
+    <% post.post_images.each do |image| %>
+      <%= image_tag image.variant(resize: '100x100').processed %>
+    <% end %>
+  <% end %>
+</div>
+
+<% end %>

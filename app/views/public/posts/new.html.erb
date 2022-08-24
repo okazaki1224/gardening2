@@ -1,2 +1,27 @@
-<h1>Public::Posts#new</h1>
-<p>Find me in app/views/public/posts/new.html.erb</p>
+<h1>投稿フォーム</h1>
+<h3>左３か４使ってテンプレ表示</h3>
+<%= form_with model: @post do |f| %>
+<table>
+  <tr>
+    <td>ジャンル━━━━━━━</td>
+    <td>
+      <%= f.select :genre_id, options_from_collection_for_select(Genre.all, :id, :name), include_blank: "ジャンルを選択して下さい" %>
+    </td>
+  </tr>
+  <tr>
+    <td>タイトル━━━━━━━</td>
+    <td><%= f.text_field:title %></td>
+  </tr>
+  <tr>
+    <td>本文</td>
+    <td><%= f.text_area:body %></td>
+  </tr>
+  <tr>
+    <td>画像</td>
+    <td><%= f.file_field:post_images, accept:"image/*", multiple: true %></td>
+  </tr>
+  <tr>
+    <td><%= f.submit '投稿' %></td>
+  </tr>
+</table>
+<% end %>
