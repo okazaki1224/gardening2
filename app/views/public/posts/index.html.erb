@@ -13,16 +13,27 @@
 </table>
 
 <% @posts.each do |post| %>
-<div>
+<table>
+  <tr>
+    <td>
+      【<%= post.genre.name %>】
+      <%= link_to post_path(post.id) do %>
+        <%= post.title %>
+      <% end %>
+    </td>
+    <td>投稿者：<%= post.user.nickname %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+  </tr>
   <%#= @genre.name %>
-  <%= link_to post_path(post.id) do %>
-    <%= post.title %>
-  <% end %>
-  <% if post.post_images.attached? %>
-    <% post.post_images.each do |image| %>
-      <%= image_tag image.variant(resize: '100x100').processed %>
-    <% end %>
-  <% end %>
-</div>
+
+  <%# if post.post_images.attached? %>
+    <%# post.post_images.each do |image| %>
+      <%#= image_tag image.variant(resize: '100x100').processed %>
+    <%# end %>
+  <%# end %>
+</table>
 
 <% end %>

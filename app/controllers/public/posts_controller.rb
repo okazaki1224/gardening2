@@ -15,8 +15,7 @@ class Public::PostsController < ApplicationController
 
   def index
     @posts = Post.all
-    #取得したジャンルidに対応するジャンル名を表示したいが、それはenumでやるべきことでは？
-    #@genre=Genre.where(id: params[:genre_id])
+    
   end
 
   def show
