@@ -2,13 +2,14 @@
 <% @users.each do |user| %>
 <table>
   <tr>
-    <td>サムネ画像</td>
+    <td><%= image_tag user.get_profile_image(40,40) %></td>
     <td>
       <%= link_to user_path(user.id) do %>
         <%= user.nickname %>
       <%end%>
     </td>
-    <td>自己紹介文</td>
+    <td>　</td>
+    <td><%= user.introduction %></td>
   </tr>
 </table>
 <%end%>

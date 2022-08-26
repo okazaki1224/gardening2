@@ -1,6 +1,6 @@
 <h1>投稿詳細</h1>
 <h3>左３か４使ってテンプレ表示</h3>
-
+<div><%= @post.created_at.strftime('%Y/%m/%d  %H:%M') %></div>
 <div>
   <% if @post.post_images.attached? %>
     <% @post.post_images.each do |image| %>
@@ -16,3 +16,4 @@
 <div>
   本文:<%= @post.body %>
 </div>
+<div>～以下コメント欄～</div>

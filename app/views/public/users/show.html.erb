@@ -3,7 +3,7 @@
 
 <table>
   <tr>
-    <td>サムネ画像</td>
+    <td><%= image_tag @user.get_profile_image(300,300) %></td>
   </tr>
   <tr><td>
     <%= link_to user_path(@user.id) do %>
@@ -11,10 +11,14 @@
     <%end%>
   </td></tr>
   <tr>
-    <td>自己紹介文</td>
+    <td><%= @user.introduction %></td>
   </tr>
   <tr>
-    <td>更新ボタン</td>
+    <td>
+      <% if @user==current_user %>
+        <%= link_to"プロフィール♥編集",edit_user_path(@user) %>
+      <%end%>
+    </td>
   </tr>
 </table>
 <% @posts.each do |post| %>
@@ -26,6 +30,8 @@
         <%end%>
       </td>
       <td>♥いいね♥</td>
+      <td><%= post.created_at.strftime('%Y/%m/%d') %></td>
     </tr>
   </table>
 <%end%>
+～以下投稿履歴～
