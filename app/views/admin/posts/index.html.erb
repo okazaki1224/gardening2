@@ -1,2 +1,29 @@
-<h1>Admin::Posts#index</h1>
-<p>Find me in app/views/admin/posts/index.html.erb</p>
+<h1>投稿一覧</h1>
+<h3>左３か４使ってテンプレ表示</h3>
+
+<% @posts.each do |post| %>
+<table>
+  <tr>
+    <td>
+      【<%= post.genre.name %>】
+      <%= link_to post_path(post.id) do %>
+        <%= post.title %>
+      <% end %>
+    </td>
+    <td>投稿者：<%= post.user.nickname %></td>
+  </tr>
+  <tr>
+    <td><%= post.created_at.strftime('%Y/%m/%d  %H:%M') %></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <%#= @genre.name %>
+
+  <%# if post.post_images.attached? %>
+    <%# post.post_images.each do |image| %>
+      <%#= image_tag image.variant(resize: '100x100').processed %>
+    <%# end %>
+  <%# end %>
+</table>
+
+<% end %>

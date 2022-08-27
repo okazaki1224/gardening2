@@ -1,2 +1,30 @@
-<h1>Public::Homes#top</h1>
-<p>Find me in app/views/public/homes/top.html.erb</p>
+<h1>トップ画面（表示制限中）</h1>
+<h3>左３か４使ってテンプレ表示</h3>
+
+<% @posts.each do |post| %>
+<table>
+  <tr>
+    <td>
+      【<%= post.genre.name %>】
+      <%= link_to post_path(post.id) do %>
+        <%= post.title %>
+      <% end %>
+    </td>
+    <td>投稿者：<%= post.user.nickname %></td>
+  </tr>
+  <tr>
+    <td><%= post.created_at.strftime('%Y/%m/%d  %H:%M') %></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <%#= @genre.name %>
+
+  <%# if post.post_images.attached? %>
+    <%# post.post_images.each do |image| %>
+      <%#= image_tag image.variant(resize: '100x100').processed %>
+    <%# end %>
+  <%# end %>
+</table>
+
+<% end %>
+<%= link_to "全ての投稿を見る≫", posts_path %>

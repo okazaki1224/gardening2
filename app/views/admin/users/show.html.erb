@@ -1,2 +1,37 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<h1>会員情報詳細</h1>
+<h3>左３か４使ってテンプレ表示</h3>
+
+<table>
+  <tr>
+    <td><%= image_tag @user.get_profile_image(300,300) %></td>
+  </tr>
+  <tr><td>
+    <%= link_to user_path(@user.id) do %>
+      <%= @user.nickname %>
+    <%end%>
+  </td></tr>
+  <tr>
+    <td><%= @user.introduction %></td>
+  </tr>
+  <tr>
+    <td>
+      <% if @user==current_user %>
+        <%= link_to"プロフィール♥編集",edit_user_path(@user) %>
+      <%end%>
+    </td>
+  </tr>
+</table>
+<% @posts.each do |post| %>
+  <table>
+    <tr>
+      <td>
+        <%= link_to post_path(post.id) do %>
+          <%= post.title %>
+        <%end%>
+      </td>
+      <td>♥いいね♥</td>
+      <td><%= post.created_at.strftime('%Y/%m/%d') %></td>
+    </tr>
+  </table>
+<%end%>
+～以下投稿履歴～

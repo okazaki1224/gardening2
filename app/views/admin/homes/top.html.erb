@@ -1,2 +1,36 @@
-<h1>Admin::Homes#top</h1>
-<p>Find me in app/views/admin/homes/top.html.erb</p>
+<h1>トップ画面（投稿一覧を兼ねるかは未定）</h1>
+<% @posts.each do |post| %>
+<table>
+  <tr>
+    <td>
+      <%= image_tag post.user.get_profile_image(80,80) %>
+    </td>
+    <td>
+      【<%= post.genre.name %>】
+      <%= link_to admin_post_path(post.id) do %>
+        <%= post.title %>
+      <% end %>
+    </td>
+    <td>
+      【投稿者】
+      <%= link_to admin_user_path(post.user.id) do %>
+        <%= post.user.nickname %>
+      <%end%>
+    </td>
+    <td>【本文】<%= post.body %></td>
+    <td>（<%= post.created_at.strftime('%Y/%m/%d  %H:%M') %>）</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+  </tr>
+  <%#= @genre.name %>
+
+  <%# if post.post_images.attached? %>
+    <%# post.post_images.each do |image| %>
+      <%#= image_tag image.variant(resize: '100x100').processed %>
+    <%# end %>
+  <%# end %>
+</table>
+
+<% end %>

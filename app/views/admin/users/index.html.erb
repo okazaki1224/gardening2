@@ -1,2 +1,16 @@
-<h1>z</h1>
-<p>Find me in app/views/admin/users/index.html.erb</p>
+<h1>会員一覧ｗ</h1>
+<% @users.each do |user| %>
+<table>
+  <tr>
+    <td><%= image_tag user.get_profile_image(40,40) %></td>
+    <td>
+      <%= link_to admin_user_path(user.id) do %>
+        <%= user.nickname %>
+      <%end%>
+      （<%= user.posts.count %>件の投稿）
+    </td>
+    <td>会員ステータス？</td>
+    <td><%#= user.introduction %></td>
+  </tr>
+</table>
+<%end%>
