@@ -8,7 +8,7 @@ sessions: 'public/sessions'
 devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 sessions: "admin/sessions"
 }
-  
+
   namespace :admin do
     root to: 'homes#top'
     #get 'homes/top'
@@ -30,9 +30,11 @@ sessions: "admin/sessions"
     #get 'posts/edit'
     #get 'posts/update'
     #get 'posts/destroy'
-    resources:users, only:[:index, :show]
+    resources:users, only:[:index, :show, :edit, :update]
     #get 'users/index'
     #get 'users/show'
+    #get 'users/unsubscribe' => 'users#unsubscribe', as: "unsubscribe"
+    #patch 'users/withdraw' => 'users#withdraw', as: "withdraw"
   end
 
   scope module: :public do
@@ -51,6 +53,7 @@ sessions: "admin/sessions"
     #get 'users/show'
     #get 'users/edit'
     #get 'users/update'
+
     resources:post_images, only:[:index, :show, :new, :create, :destroy]
     #get 'post_images/index'
     #get 'post_images/show'
@@ -60,6 +63,7 @@ sessions: "admin/sessions"
     #get 'posts/show'
     #get 'posts/new'
   end
-
+  get 'users/:id/unsubscribe' => 'public/users#unsubscribe', as: "unsubscribe"
+  patch 'users/withdraw' => 'public/users#withdraw', as: "withdraw"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

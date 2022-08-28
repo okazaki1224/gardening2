@@ -16,11 +16,12 @@
   <tr>
     <td>
       <% if @user==current_user %>
-        <%= link_to"プロフィール♥編集",edit_user_path(@user) %>
+        <%= link_to"プロフィール編集",edit_user_path(@user) %>
       <%end%>
     </td>
   </tr>
 </table>
+～以下投稿履歴～
 <% @posts.each do |post| %>
   <table>
     <tr>
@@ -29,9 +30,9 @@
           <%= post.title %>
         <%end%>
       </td>
-      <td>♥いいね♥</td>
+      <td>♥いいね</td>
       <td><%= post.created_at.strftime('%Y/%m/%d') %></td>
     </tr>
   </table>
 <%end%>
-～以下投稿履歴～
+

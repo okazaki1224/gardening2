@@ -9,7 +9,13 @@
       <%end%>
       （<%= user.posts.count %>件の投稿）
     </td>
-    <td>会員ステータス？</td>
+    <td>会員ステータス:
+      <% if user.is_deleted==false %>
+        有効
+      <% else %>
+        退会
+      <% end %>
+    </td>
     <td><%#= user.introduction %></td>
   </tr>
 </table>

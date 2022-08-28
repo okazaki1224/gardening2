@@ -6,7 +6,7 @@
     <td><%= image_tag @user.get_profile_image(300,300) %></td>
   </tr>
   <tr><td>
-    <%= link_to user_path(@user.id) do %>
+    <%= link_to admin_user_path(@user.id) do %>
       <%= @user.nickname %>
     <%end%>
   </td></tr>
@@ -15,9 +15,9 @@
   </tr>
   <tr>
     <td>
-      <% if @user==current_user %>
-        <%= link_to"プロフィール♥編集",edit_user_path(@user) %>
-      <%end%>
+      <%# if @user==current_user %>
+        <%= link_to"プロフィール編集",edit_admin_user_path(@user) %>
+      <%#end%>
     </td>
   </tr>
 </table>
@@ -25,11 +25,11 @@
   <table>
     <tr>
       <td>
-        <%= link_to post_path(post.id) do %>
+        <%= link_to admin_post_path(post.id) do %>
           <%= post.title %>
         <%end%>
       </td>
-      <td>♥いいね♥</td>
+      <td>♥いいね</td>
       <td><%= post.created_at.strftime('%Y/%m/%d') %></td>
     </tr>
   </table>
