@@ -21,17 +21,18 @@
     </td>
   </tr>
 </table>
-<% @posts.each do |post| %>
-  <table>
-    <tr>
-      <td>
-        <%= link_to admin_post_path(post.id) do %>
-          <%= post.title %>
-        <%end%>
-      </td>
-      <td>♥いいね</td>
-      <td><%= post.created_at.strftime('%Y/%m/%d') %></td>
-    </tr>
-  </table>
-<%end%>
 ～以下投稿履歴～
+  <% @posts.each do |post| %>
+    <table>
+      <tr>
+        <td>
+          <%= link_to admin_post_path(post.id) do %>
+            <%= post.title %>
+          <%end%>
+        </td>
+        <td>♥いいね</td>
+        <td><%= post.created_at.strftime('%Y/%m/%d') %></td>
+      </tr>
+    </table>
+  <%end%>
+

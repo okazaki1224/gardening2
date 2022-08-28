@@ -1,12 +1,7 @@
 <h2>会員情報編集<悪用厳禁></h2>
 
 <%= form_with model: @user, url: admin_user_path, method: :patch do |f| %>
-  <div>
-    <%= f.label:is_deleted, "有効", {value:false, style:"display:inline-box;"} %>
-    <%= f.radio_button:is_deleted, false %>
-    <%= f.label:is_deleted, "退会", {value:true, style:"display:inline-box;"} %>
-    <%= f.radio_button:is_deleted, true %>
-  </div>
+
   <div class="field">
     <label for="inputName">姓</label></br>
     <%= f.text_field :last_name, id:"inputName", placeholder:"姓"%></br>
@@ -46,6 +41,13 @@
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div>
+    <%= f.label:is_deleted, "有効", {value:false, style:"display:inline-box;"} %>
+    <%= f.radio_button:is_deleted, false %>
+    <%= f.label:is_deleted, "退会", {value:true, style:"display:inline-box;"} %>
+    <%= f.radio_button:is_deleted, true %>
   </div>
 
   <div class="actions">
