@@ -36,7 +36,7 @@ sessions: "admin/sessions"
     #get 'users/unsubscribe' => 'users#unsubscribe', as: "unsubscribe"
     #patch 'users/withdraw' => 'users#withdraw', as: "withdraw"
   end
-
+  patch 'users/withdraw' => 'public/users#withdraw', as: "withdraw"
   scope module: :public do
     root to: 'homes#top'
     get '/about' => 'homes#about', as: "about"
@@ -64,6 +64,6 @@ sessions: "admin/sessions"
     #get 'posts/new'
   end
   get 'users/:id/unsubscribe' => 'public/users#unsubscribe', as: "unsubscribe"
-  patch 'users/withdraw' => 'public/users#withdraw', as: "withdraw"
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

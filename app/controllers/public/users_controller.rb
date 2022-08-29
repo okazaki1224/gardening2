@@ -29,6 +29,7 @@ class Public::UsersController < ApplicationController
 
   def withdraw
     @user = current_user
+
     # is_deletedカラムをtrueに変更することにより削除フラグを立てる
     @user.update(is_deleted: true)
     reset_session
@@ -36,7 +37,7 @@ class Public::UsersController < ApplicationController
     redirect_to root_path
   end
 
-  private#
+  private
   def user_params
       params.require(:user).permit(:email, :encrypted_password, :last_name, :first_name,
       :nickname, :introduction, :profile_image, :is_deleted)
