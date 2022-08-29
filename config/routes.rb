@@ -19,7 +19,7 @@ sessions: "admin/sessions"
     #get 'genres/update'
     resources:post_images, only:[:index]
     #get 'post_images/index'
-    resources:comments, only:[:index, :edit, :update, :destroy]
+    #resources:post_comments, only:[:index, :edit, :update, :destroy]
     #get 'comments/index'
     #get 'comments/edit'
     #get 'comments/update'
@@ -58,7 +58,9 @@ sessions: "admin/sessions"
     #get 'post_images/index'
     #get 'post_images/show'
     #get 'post_images/new'
-    resources:posts, only:[:index, :show, :new, :create, :destroy]
+    resources:posts, only:[:index, :show, :new, :create, :destroy] do
+      resources:post_comments,only: [:create]
+    end
     #get 'posts/index'
     #get 'posts/show'
     #get 'posts/new'
