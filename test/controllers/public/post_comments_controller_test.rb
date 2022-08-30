@@ -1,7 +1,23 @@
 require "test_helper"
 
 class Public::PostCommentsControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should get index" do
+    get public_post_comments_index_url
+    assert_response :success
+  end
+
+  test "should get edit" do
+    get public_post_comments_edit_url
+    assert_response :success
+  end
+
+  test "should get update" do
+    get public_post_comments_update_url
+    assert_response :success
+  end
+
+  test "should get destroy" do
+    get public_post_comments_destroy_url
+    assert_response :success
+  end
 end

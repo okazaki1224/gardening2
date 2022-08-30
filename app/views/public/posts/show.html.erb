@@ -1,7 +1,7 @@
 <h1>投稿詳細＠非表示にできるか</h1>
 <h3>左３か４使ってテンプレ表示</h3>
 <div><%= @post.created_at.strftime('%Y/%m/%d  %H:%M') %></div>
-<% if @post.user.is_deleted==false %>
+<%# if @post.user.is_deleted==false %>
   <div>
     <% if @post.post_images.attached? %>
       <% @post.post_images.each do |image| %>
@@ -19,14 +19,25 @@
   </div>
   ～以下コメント欄～
 
-  <div>
-  <p>コメント件数：<%= @post.post_comments.count %></p>
+<table>
+  <tr>
+    <td>コメント件数：<%= @post.post_comments.count %></td>
+  </tr>
   <% @post.post_comments.each do |post_comment| %>
+  <tr>
+    <td>
     <%= image_tag post_comment.user.get_profile_image(50,50) %>
     <%= post_comment.user.nickname %>
-    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+    <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+    <% if @post_comment.is_deleted==false %>
+      <%= post_comment.comment %>
+    <% else %>
+      ≪このコメントは削除されました≫
+    <%end%>
+    </td>
+  </tr>
   <% end %>
-</div>
+</table>
 <div>
   <%= form_with model: [@post, @post_comment] do |f| %>
     <%= f.text_area :comment, rows: '5', placeholder: "コメントはこちら" %>
@@ -34,6 +45,6 @@
   <% end %>
 </div>
 
-<% else %>
-  (´･ω･`)現在この投稿は管理者の判断で非表示にしています。(´･ω･`)
-<%end%>
+<%# else(´･ω･`)現在この投稿は管理者の判断で非表示にしています。(´･ω･`) %>
+
+<%#end%>

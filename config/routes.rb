@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  namespace :public do
+    get 'post_comments/index'
+    get 'post_comments/edit'
+    get 'post_comments/update'
+    get 'post_comments/destroy'
+  end
 #deviseで作ったものは一番上に！
 devise_for :users,skip: [:passwords], controllers: {
 registrations: "public/registrations",
@@ -17,19 +23,22 @@ sessions: "admin/sessions"
     #get 'genres/create'
     #get 'genres/edit'
     #get 'genres/update'
-    resources:post_images, only:[:index]
+    #resources:post_images, only:[:index]
     #get 'post_images/index'
     #resources:post_comments, only:[:index, :edit, :update, :destroy]
     #get 'comments/index'
     #get 'comments/edit'
     #get 'comments/update'
     #get 'comments/destroy'
-    resources:posts, only:[:index, :show, :edit, :update, :destroy]
+    resources:posts, only:[:index, :show, :edit, :update, :destroy] do
+      resources:post_comments,only: [:edit, :update]
+    end
     #get 'posts/index'
     #get 'posts/show'
     #get 'posts/edit'
     #get 'posts/update'
     #get 'posts/destroy'
+    #resources:post_comments,only: [:index, :edit, :update]
     resources:users, only:[:index, :show, :edit, :update]
     #get 'users/index'
     #get 'users/show'
