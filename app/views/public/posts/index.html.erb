@@ -24,8 +24,13 @@
     <td>投稿者：<%= post.user.nickname %></td>
   </tr>
   <tr>
-    <td><%= post.created_at.strftime('%Y/%m/%d  %H:%M') %></td>
-    <td></td>
+    <td><%= post.created_at.strftime('%Y/%m/%d  %H:%M') %>
+      <% if post.favorited_by?(current_user) %>
+          ♥<%= post.favorites.count %> いいね
+      <% else %>
+          ♡<%= post.favorites.count %> いいね
+      <% end %>
+    </td>
     <td></td>
   </tr>
   <%#= @genre.name %>

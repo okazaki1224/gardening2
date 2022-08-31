@@ -51,9 +51,7 @@ sessions: "admin/sessions"
     get '/about' => 'homes#about', as: "about"
     #get 'homes/top'
     #get 'homes/about'
-    resources:favorites, only:[:create, :destroy]
-    #get 'favorites/create'
-    #get 'favorites/destroy'
+
     resources:comments, only:[:create, :destroy]
     #get 'comments/create'
     #get 'comments/destroy'
@@ -69,6 +67,7 @@ sessions: "admin/sessions"
     #get 'post_images/new'
     resources:posts, only:[:index, :show, :new, :create, :destroy] do
       resources:post_comments,only: [:create]
+      resource:favorites, only:[:create, :destroy]
     end
     #get 'posts/index'
     #get 'posts/show'

@@ -15,7 +15,7 @@ class Public::PostsController < ApplicationController
 
   def index
     @posts = Post.all
-    
+    #@post=Post.find(params[:id])
   end
 
   def show
