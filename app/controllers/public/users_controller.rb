@@ -1,5 +1,12 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: [:myfavorites]
+
+  def myfavorites
+    @user=User.find(params[:id])
+    myfavorites = Favorite.where(user_id: @user.id).pluck(:post_id)
+    @myfavorite_posts = Post.find(myfavorites)
+  end
 
   def index
     @users=User.all
@@ -43,5 +50,8 @@ class Public::UsersController < ApplicationController
       :nickname, :introduction, :profile_image, :is_deleted)
   end
 
+  def set_user
+    @user = User.find(params[:id])
+  end
 
 end

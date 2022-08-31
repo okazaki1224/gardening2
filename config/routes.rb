@@ -55,7 +55,12 @@ sessions: "admin/sessions"
     resources:comments, only:[:create, :destroy]
     #get 'comments/create'
     #get 'comments/destroy'
-    resources:users, only:[:index, :show, :edit, :update]
+    resources:users, only:[:index, :show, :edit, :update] do
+      member do
+        get :myfavorites
+      end
+    end
+    #get 'users/myfavoritess' => 'public/users#myfavorites', as: "myfavorites"
     #get 'users/index'
     #get 'users/show'
     #get 'users/edit'
