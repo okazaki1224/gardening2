@@ -3,19 +3,34 @@ class Public::PostsController < ApplicationController
 
   def new
     @post=Post.new
+    @tag_lists=Tag.all
   end
 
   def create
     #@posts=Post.all
     @post=Post.new(post_params)
+    tag_list=params[:post][:tag_name].split(nil)
     @post.user_id=current_user.id
-    @post.save
-    redirect_to posts_path
+    if @post.save
+      @post.save_posts(tag_list)
+      redirect_to posts_path
+    else
+      flash.now[:alert]="投稿に失敗しました"
+      render :new
+    end
   end
 
   def index
-    @posts = Post.all
-    #@post=Post.find(params[:id])
+    if params[:search].present?
+      posts=Post.posts_search(params[search])
+    elsif params[:tag_id].present?
+      @tag=Tag.find(params[:tag_id])
+      posts=@tag.posts.order(created_at: :desc)
+    else
+      posts = Post.all.order(created_at: :desc)
+    end
+    @tag_lists=Tag.all
+    @posts=Kaminari.paginate_array(posts).page(params[:page]).per(10)
   end
 
   def show
