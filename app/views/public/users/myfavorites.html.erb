@@ -2,9 +2,28 @@
 <% @myfavorite_posts.each do |post| %>
 <table>
   <tr>
-    <td><%= image_tag post.user.profile_image.variant(resize_to_limit:[40,40]).processed %></td>
-    <td><%= post.user.nickname %></td>
-    <td><%= post.title %></td>
+    <td>
+      <%= link_to user_path(post.user.id) do %>
+        <%= image_tag post.user.profile_image.variant(resize_to_limit:[40,40]).processed %>
+      <%end%>
+    </td>
+    <td>
+      <%= link_to user_path(post.user.id) do %>
+        <%= post.user.nickname %></td>
+      <% end %>
+    <td>
+      <%= link_to post_path(post.id) do %>
+        <%= post.title %>
+      <%end%>
+    </td>
+    <td>
+      <% if post.favorited_by?(current_user) %>
+        ♥<%= post.favorites.count %> いいね
+      <% else %>
+        ♡<%= post.favorites.count %> いいね
+      <% end %>
+    </td>
+      <td><%= post.created_at.strftime('%Y/%m/%d %H:%M') %></td>
   </tr>
 </table>
 
