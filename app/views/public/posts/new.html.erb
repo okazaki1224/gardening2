@@ -1,6 +1,6 @@
 <h1>投稿フォーム</h1>
 <h3>左３か４使ってテンプレ表示</h3>
-<%= @tag_lists.each do |list| %>
+<% @tag_lists.each do |list| %>
 <%= link_to list.tag_name, posts_path(tag_id: list.id)%>
 <% end %></br>
 ここまでテンプレ</br>
@@ -26,7 +26,7 @@
     </tr>
     <tr>
       <td>タグ</td>
-      <td><%= f.text_field:tag_name, placeholder: "タグ時はｽﾍﾟｰｽで区切ってね" %></td>
+      <td><%= f.text_field:tag_name, placeholder: "タグはｽﾍﾟｰｽで区切ってね" %></td>
     </tr>
     <tr>
       <td><%= f.submit '投稿' %></td>
