@@ -51,7 +51,7 @@ sessions: "admin/sessions"
     get '/about' => 'homes#about', as: "about"
     #get 'homes/top'
     #get 'homes/about'
-
+    
     resources:comments, only:[:create, :destroy]
     #get 'comments/create'
     #get 'comments/destroy'
@@ -73,12 +73,14 @@ sessions: "admin/sessions"
     resources:posts, only:[:index, :show, :new, :create, :destroy] do
       resources:post_comments,only: [:create]
       resource:favorites, only:[:create, :destroy]
+      #get 'search' => 'posts#search'
+      get :search, on: :collection
     end
     #get 'posts/index'
     #get 'posts/show'
     #get 'posts/new'
   end
   get 'users/:id/unsubscribe' => 'public/users#unsubscribe', as: "unsubscribe"
-
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

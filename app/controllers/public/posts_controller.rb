@@ -9,7 +9,8 @@ class Public::PostsController < ApplicationController
   def create
     #@posts=Post.all
     @post=Post.new(post_params)
-    tag_list=params[:post][:tag_name].split(nil)
+    #split(nil)だと会員が全角ｽﾍﾟｰｽでﾀｸﾞを分割したとき、意図しないタグが生成され
+    tag_list=params[:post][:tag_name].split(/[[:blank:]]/)
     @post.user_id=current_user.id
     if @post.save
       @post.save_posts(tag_list)
@@ -18,6 +19,13 @@ class Public::PostsController < ApplicationController
       flash.now[:alert]="投稿に失敗しました"
       render :new
     end
+  end
+
+  def search
+    @posts = Post.search(params[:keyword])
+    @keyword = params[:keyword]
+    @tag_lists=Tag.all
+    render "index"
   end
 
   def index
@@ -36,7 +44,9 @@ class Public::PostsController < ApplicationController
   def show
     @post=Post.find(params[:id])
     @post_comment=PostComment.new
+    @tag_lists=Tag.all
   end
+
 
   private
   def post_params

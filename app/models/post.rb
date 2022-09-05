@@ -13,8 +13,8 @@ class Post < ApplicationRecord
     favorites.exists?(user_id: user.id)
   end
   #あいまい検索
-  def self.posts_search(search)
-    posts.where(["title LIKE? OR body LIKE?", "$#{search}%","$#{search}%"])
+  def self.search(keyword)
+    where(["title LIKE? OR body LIKE?", "%#{keyword}%","#{keyword}%"])
   end
 
   def save_posts(tags)
@@ -31,4 +31,5 @@ class Post < ApplicationRecord
      self.tags << post_tag
     end
   end
+
 end
