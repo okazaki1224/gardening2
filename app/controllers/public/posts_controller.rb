@@ -29,8 +29,9 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    if params[:search].present?
-      posts=Post.posts_search(params[search])
+    if params[:keyword].present?
+      posts=Post.search(params[keywrod])
+      #paramsの中身が[:search]になってるけどkeywordに統一していいのでは
     elsif params[:tag_id].present?
       @tag=Tag.find(params[:tag_id])
       posts=@tag.posts.order(created_at: :desc)

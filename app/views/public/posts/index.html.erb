@@ -30,7 +30,6 @@
       </td>
       <td><%#= link_to list.tag_name, posts_path(tag_id: list.id)%>
         <% post.tags.each do |tag| %>
-
           <%=link_to "##{tag.tag_name}",posts_path(tag_id: tag.id) %>
         <%end%>
       </td>
