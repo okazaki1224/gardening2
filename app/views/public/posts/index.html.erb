@@ -28,6 +28,9 @@
             ♡<%= post.favorites.count %>
         <% end %>
       </td>
+      <td>
+        (<%= post.post_comments.count %>)
+      </td>
       <td><%#= link_to list.tag_name, posts_path(tag_id: list.id)%>
         <% post.tags.each do |tag| %>
           <%=link_to "##{tag.tag_name}",posts_path(tag_id: tag.id) %>

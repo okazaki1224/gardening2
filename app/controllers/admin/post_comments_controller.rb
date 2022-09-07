@@ -1,5 +1,6 @@
-class Admin::CommentsController < ApplicationController
+class Admin::PostCommentsController < ApplicationController
   before_action :authenticate_admin!
+
   def index
     @posts=Post.all
   end
@@ -9,7 +10,8 @@ class Admin::CommentsController < ApplicationController
 
   def update
     @post=Post.find(params[:id])
-    @post.update(post_comment_params)
+    @post_comment=PostComment.find(params[:id])
+    @post_comment.update(post_comment_params)
     redirect_to admin_post_path(@post.id)
   end
 

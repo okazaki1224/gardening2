@@ -31,7 +31,7 @@ sessions: "admin/sessions"
     #get 'comments/update'
     #get 'comments/destroy'
     resources:posts, only:[:index, :show, :edit, :update, :destroy] do
-      resources:post_comments,only: [:edit, :update]
+      resources:post_comments,only: [:index, :edit, :update]
     end
     #get 'posts/index'
     #get 'posts/show'
@@ -45,13 +45,15 @@ sessions: "admin/sessions"
     #get 'users/unsubscribe' => 'users#unsubscribe', as: "unsubscribe"
     #patch 'users/withdraw' => 'users#withdraw', as: "withdraw"
   end
+
   patch 'users/withdraw' => 'public/users#withdraw', as: "withdraw"
+
   scope module: :public do
     root to: 'homes#top'
     get '/about' => 'homes#about', as: "about"
     #get 'homes/top'
     #get 'homes/about'
-    
+
     resources:comments, only:[:create, :destroy]
     #get 'comments/create'
     #get 'comments/destroy'
@@ -81,6 +83,6 @@ sessions: "admin/sessions"
     #get 'posts/new'
   end
   get 'users/:id/unsubscribe' => 'public/users#unsubscribe', as: "unsubscribe"
-  
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

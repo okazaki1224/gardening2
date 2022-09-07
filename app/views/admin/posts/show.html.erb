@@ -33,7 +33,7 @@
   </tr>
   <tr>
     <td>
-      <%= form_with model: post_comment, url: admin_post_post_comment_path(post_comment.id), local: true do |f| %>
+      <%= form_with model: post_comment, url: admin_post_post_comment_path(post_comment.id), method: :patch, local: true do |f| %>
         <%= f.radio_button:is_deleted, false %>
         <%= f.label:is_deleted, "OK", {value:false, style:"display:inline-box;"} %>
         <%= f.radio_button:is_deleted, true %>
