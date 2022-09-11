@@ -1,14 +1,6 @@
 <h1>投稿一覧</h1>
-<h3>左３か４使って部分テンプレ表示</h3>
-<%= form_with url: search_posts_path, method: :get, local: true do |f| %>
-  <%= f.text_field :keyword, value: @keyword %>
-  <%= f.submit "検索" %>
-<% end %>
+<%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %>
 
-タグ：<% @tag_lists.each do |tag| %>
-  <%= link_to tag.tag_name, posts_path(tag_id: tag.id)%>
-<% end %></br>
-ここまでテンプレ</br>
 <% @posts.each do |post| %>
   <table>
     <tr>

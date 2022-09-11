@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
-  namespace :public do
-    get 'post_comments/index'
-    get 'post_comments/edit'
-    get 'post_comments/update'
-    get 'post_comments/destroy'
-  end
+
+post '/guests/guest_sign_in', to: 'public/guests#new_guest'
+
 #deviseで作ったものは一番上に！
 devise_for :users,skip: [:passwords], controllers: {
 registrations: "public/registrations",
@@ -54,7 +51,13 @@ sessions: "admin/sessions"
     #get 'homes/top'
     #get 'homes/about'
 
-    resources:comments, only:[:create, :destroy]
+    #namespace :public do
+    #get 'post_comments/index'
+    #get 'post_comments/edit'
+    #get 'post_comments/update'
+    #get 'post_comments/destroy'
+    #end
+    resources:post_comments, only:[:index, :edit, :create, :destroy]
     #get 'comments/create'
     #get 'comments/destroy'
     resources:users, only:[:index, :show, :edit, :update] do
@@ -72,7 +75,7 @@ sessions: "admin/sessions"
     #get 'post_images/index'
     #get 'post_images/show'
     #get 'post_images/new'
-    resources:posts, only:[:index, :show, :new, :create, :destroy] do
+    resources:posts, only:[:index, :show, :new, :create, :edit, :update, :destroy] do
       resources:post_comments,only: [:create]
       resource:favorites, only:[:create, :destroy]
       #get 'search' => 'posts#search'

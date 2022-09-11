@@ -1,6 +1,8 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!
 
+
+
   def new
     @post=Post.new
     @tag_lists=Tag.all
@@ -30,16 +32,16 @@ class Public::PostsController < ApplicationController
 
   def index
     if params[:keyword].present?
-      posts=Post.search(params[keywrod])
+      posts=Post.publish.search(params[keywrod])
       #paramsの中身が[:search]になってるけどkeywordに統一していいのでは
     elsif params[:tag_id].present?
       @tag=Tag.find(params[:tag_id])
-      posts=@tag.posts.order(created_at: :desc)
+      posts=@tag.posts.publish.order(created_at: :desc)
     else
-      posts = Post.all.order(created_at: :desc)
+      posts = Post.all.publish.order(created_at: :desc)
     end
     @tag_lists=Tag.all
-    @posts=Kaminari.paginate_array(posts).page(params[:page]).per(10)
+    @posts=Kaminari.paginate_array(posts.publish).page(params[:page]).per(10)
   end
 
   def show
@@ -48,9 +50,24 @@ class Public::PostsController < ApplicationController
     @tag_lists=Tag.all
   end
 
+  def edit
+    @tag_lists=Tag.all
+    @post=Post.find(params[:id])
+    @post_comment=PostComment.new
+
+  end
+
+  def update
+    # @tag=Tag.find(params[:tag_id])
+    @post=Post.find(params[:id])
+    @post_comment=PostComment.new
+    @tag_lists=Tag.all
+    @post.update(post_params)
+    render :show
+  end
 
   private
   def post_params
-    params.require(:post).permit(:title, :body, :user_id, :genre_id, :image, post_images:[])
+    params.require(:post).permit(:post_status, :title, :body, :user_id, :genre_id, :image, post_images:[])
   end
 end

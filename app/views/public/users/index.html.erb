@@ -1,4 +1,6 @@
 <h1>会員一覧</h1>
+<%= render 'list',keyword: @keyword, tag_lists: @tag_lists %>
+
 <% @users.each do |user| %>
 <table>
   <tr>

@@ -1,18 +1,21 @@
 <h1>投稿詳細＠非表示にできるか</h1>
-<h3>左３か４使ってテンプレ表示</h3>
+<%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %></br>
 
-<%# if @post.user.is_deleted==false %>
+<%# if @post.post_status == "publish" %>
   <div>
     <% if @post.post_images.attached? %>
       <% @post.post_images.each do |image| %>
-        <%= image_tag image.variant(resize_to_limit:[400,400]).processed %>
+        <%= image_tag image.variant(resize_to_limit:[300,300]).processed %>
       <% end %>
     <% else %>
       <%= image_tag 'no_image.jpg' %>
     <% end %>
   </div>
-  <p><%= @post.created_at.strftime('%Y/%m/%d  %H:%M') %></p>
-  <p>タイトル:<%= @post.title %></p>
+  <p>
+    投稿者:<%= @post.user.nickname %>
+    <%= @post.created_at.strftime('%Y/%m/%d  %H:%M') %>
+  </p>
+  <p>タイトル:【<%= @post.genre.name %>】<%= @post.title %></p>
   本文:<%= @post.body %>
   <% if @post.favorited_by?(current_user) %>
     <p>
@@ -26,36 +29,42 @@
         ♡<%= @post.favorites.count %> いいね
       <% end %>
     </p>
-
+  <% end %>
+  <% if @post.user==current_user# && @post.post_status != "publish" %>
+    <%= link_to "記事編集",edit_post_path(@post.id) %>
   <% end %>
   ～以下コメント欄～
-
-<table>
-  <tr>
-    <td>コメント件数：<%= @post.post_comments.count %></td>
-  </tr>
-  <% @post.post_comments.each do |post_comment| %>
-  <tr>
-    <td>
-    <%= image_tag post_comment.user.get_profile_image(50,50) %>
-    <%= post_comment.user.nickname %>
-    <%= post_comment.created_at.strftime('%Y/%m/%d') %>
-    <% if post_comment.is_deleted==false %>
-      <%= post_comment.comment %>
-    <% else %>
-      ≪このコメントは削除されました≫
+  <table>
+    <tr>
+      <td>コメント件数：<%= @post.post_comments.count %></td>
+    </tr>
+    <% @post.post_comments.each do |post_comment| %>
+    <tr>
+      <td>
+      <%= image_tag post_comment.user.get_profile_image(50,50) %>
+      <%= post_comment.user.nickname %>
+      <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+      <% if post_comment.is_deleted==false %>
+        <%= post_comment.comment %>
+      <% else %>
+        ≪このコメントは削除されました≫
+      <% end %>
+      </td>
+    </tr>
     <% end %>
-    </td>
-  </tr>
-  <% end %>
-</table>
-<div>
-  <%= form_with model: [@post, @post_comment] do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "コメントはこちら" %>
-    <%= f.submit "送信する" %>
-  <% end %>
-</div>
-
-<%# else(´･ω･`)現在この投稿は管理者の判断で非表示にしています。(´･ω･`) %>
+  </table>
+  <div>
+    <%= form_with(model: [@post, @post_comment]) do |f| %>
+      <%= f.text_area :comment, rows: '5', placeholder: "コメントはこちら" %>
+      <%= f.submit "送信する" %>
+    <% end %>
+  </div>
+  <div>
+    タグ：
+      <% @post.tags.each do |tag| %>
+        <%=link_to "##{tag.tag_name}",posts_path(tag_id: tag.id) %>
+      <%end%>
+  </div>
+<%# else %>
 
 <%#end%>

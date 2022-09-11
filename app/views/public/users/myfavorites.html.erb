@@ -1,4 +1,6 @@
 <p>いいねした投稿一覧</p>
+<%= render 'list',keyword: @keyword, tag_lists: @tag_lists %>
+
 <% @myfavorite_posts.each do |post| %>
 <table>
   <tr>

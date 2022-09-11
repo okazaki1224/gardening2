@@ -32,4 +32,10 @@ class Post < ApplicationRecord
     end
   end
 
+enum post_status:{
+    publish:0,
+    unpublish:1,
+    draft:2
+  }
+
 end

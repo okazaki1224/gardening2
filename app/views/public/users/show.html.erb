@@ -1,9 +1,9 @@
 <h1>会員情報詳細</h1>
-<h3>左３か４使ってテンプレ表示</h3>
+<%= render 'list',keyword: @keyword, tag_lists: @tag_lists %>
 
 <table>
   <tr>
-    <td><%= image_tag @user.get_profile_image(300,300) %></td>
+    <td><%= image_tag @user.get_profile_image(200,200) %></td>
   </tr>
   <tr><td>
     <%= link_to user_path(@user.id) do %>

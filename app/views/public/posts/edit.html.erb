@@ -1,8 +1,8 @@
-<h1>投稿フォーム</h1>
+<h1>投稿編集</h1>
 <%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %></br>
+ここまで部分テンプレート</br>
 
 
-ここまでテンプレ</br>
 <%= form_with(model:[@tag,@post], local:true) do |f| %>
   <table>
     <tr>

@@ -3,6 +3,7 @@ class Public::UsersController < ApplicationController
   before_action :set_user, only: [:myfavorites]
 
   def myfavorites
+    @tag_lists=Tag.all
     @user=User.find(params[:id])
     myfavorites = Favorite.where(user_id: @user.id).pluck(:post_id)
     @myfavorite_posts = Post.find(myfavorites)
@@ -10,14 +11,17 @@ class Public::UsersController < ApplicationController
 
   def index
     @users=User.all
+    @tag_lists=Tag.all
   end
 
   def show
+    @tag_lists=Tag.all
     @user=User.find(params[:id])
     @posts=@user.posts
   end
 
   def edit
+    @tag_lists=Tag.all
     @user=User.find(params[:id])
   end
 
@@ -36,7 +40,6 @@ class Public::UsersController < ApplicationController
 
   def withdraw
     @user = current_user
-
     # is_deletedカラムをtrueに変更することにより削除フラグを立てる
     @user.update(is_deleted: true)
     reset_session

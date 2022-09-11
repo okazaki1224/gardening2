@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_03_130619) do
+ActiveRecord::Schema.define(version: 2022_09_09_132733) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 2022_09_03_130619) do
     t.integer "genre_id", null: false
     t.string "title", null: false
     t.string "body", null: false
-    t.boolean "is_published", default: true, null: false
+    t.integer "post_status", default: 0, null: false
   end
 
   create_table "tagmaps", force: :cascade do |t|
