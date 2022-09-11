@@ -1,6 +1,6 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!
-
+  before_action :check_guest, only: %i[update]
 
 
   def new
@@ -69,5 +69,13 @@ class Public::PostsController < ApplicationController
   private
   def post_params
     params.require(:post).permit(:post_status, :title, :body, :user_id, :genre_id, :image, post_images:[])
+  end
+
+  def check_guest
+    if current_user.email == 'guest@example.com'
+
+     flash[:notice] = 'ゲストユーザーでの変更・削除はできません。'
+     redirect_to root_path
+    end
   end
 end

@@ -32,7 +32,7 @@
   <% end %>
   <% if @post.user==current_user# && @post.post_status != "publish" %>
     <%= link_to "記事編集",edit_post_path(@post.id) %>
-  <% end %>
+  <% end %></br>
   ～以下コメント欄～
   <table>
     <tr>

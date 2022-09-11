@@ -1,10 +1,11 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:myfavorites]
+  before_action :set_user, only: %i[myfavorites show edit unsubscribe]
+  before_action :check_guest, only: %i[update withdraw]
 
   def myfavorites
     @tag_lists=Tag.all
-    @user=User.find(params[:id])
+    #@user=User.find(params[:id])
     myfavorites = Favorite.where(user_id: @user.id).pluck(:post_id)
     @myfavorite_posts = Post.find(myfavorites)
   end
@@ -16,13 +17,13 @@ class Public::UsersController < ApplicationController
 
   def show
     @tag_lists=Tag.all
-    @user=User.find(params[:id])
+    #@user=User.find(params[:id])
     @posts=@user.posts
   end
 
   def edit
     @tag_lists=Tag.all
-    @user=User.find(params[:id])
+    #@user=User.find(params[:id])
   end
 
   def update
@@ -35,7 +36,7 @@ class Public::UsersController < ApplicationController
   end
 
   def unsubscribe
-    @user=User.find(params[:id])
+    #@user=User.find(params[:id])
   end
 
   def withdraw
@@ -55,6 +56,14 @@ class Public::UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def check_guest
+    if current_user.email == 'guest@example.com'
+
+     flash[:notice] = 'ゲストユーザーでの変更・退会はできません。'
+     redirect_to root_path
+    end
   end
 
 end
