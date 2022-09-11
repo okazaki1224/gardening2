@@ -62,6 +62,8 @@ class Public::PostsController < ApplicationController
     @post=Post.find(params[:id])
     @post_comment=PostComment.new
     @tag_lists=Tag.all
+    tag_list=params[:post][:tag_name].split(/[[:blank:]]/)
+    @post.save_posts(tag_list)
     @post.update(post_params)
     render :show
   end
