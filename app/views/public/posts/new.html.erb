@@ -1,6 +1,14 @@
+<% if @post.errors.any? %>
+  <h3><% pluralize(@post.errors.count,"error")%>件のエラーが発生しました。</h3>
+  <ul>
+    <% @post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 <h1>投稿フォーム</h1>
-<%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %></br>
 
+<%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %></br>
 
 ここまでテンプレ</br>
 <%= form_with(model:[@tag,@post], local:true) do |f| %>
