@@ -31,6 +31,11 @@
     <tr>
       <td>
         <%= link_to post_path(post.id) do %>
+          <% if @user==current_user && post.post_status=="unpublish" %>
+            【非公開】
+          <% elsif @user==current_user && post.post_status=="draft" %>
+            【下書き】
+          <% end %>
           <%= post.title %>
         <%end%>
       </td>

@@ -1,7 +1,9 @@
 <h1>投稿詳細＠非表示にできるか</h1>
 <%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %></br>
 
-<%# if @post.post_status == "publish" %>
+<% if @post.post_status != "publish" && @post.user != current_user %>
+ この記事は公開されていません(´･ω･`)
+<% else %>
   <div>
     <% if @post.post_images.attached? %>
       <% @post.post_images.each do |image| %>
@@ -67,4 +69,4 @@
   </div>
 <%# else %>
 
-<%#end%>
+<%end%>
