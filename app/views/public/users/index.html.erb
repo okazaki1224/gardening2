@@ -1,17 +1,24 @@
 <h1>会員一覧</h1>
-<%= render 'list',keyword: @keyword, tag_lists: @tag_lists %>
-
-<% @users.each do |user| %>
-<table>
-  <tr>
-    <td><%= image_tag user.get_profile_image(40,40) %></td>
-    <td>
-      <%= link_to user_path(user.id) do %>
-        <%= user.nickname %>
-      <%end%>
-    </td>
-    <td>　</td>
-    <td><%= user.introduction %></td>
-  </tr>
-</table>
-<%end%>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-lg-3">
+      <%= render 'list',keyword: @keyword, tag_lists: @tag_lists %>
+    </div>
+    <div class = "col-lg-9">
+      <% @users.each do |user| %>
+      <table>
+        <tr>
+          <td><%= image_tag user.get_profile_image(40,40) %></td>
+          <td>
+            <%= link_to user_path(user.id) do %>
+              <%= user.nickname %>
+            <%end%>
+          </td>
+          <td>　</td>
+          <td><%= user.introduction %></td>
+        </tr>
+      </table>
+      <% end %>
+    </div>
+  </div>
+</div>

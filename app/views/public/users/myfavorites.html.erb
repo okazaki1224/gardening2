@@ -1,32 +1,38 @@
 <p>いいねした投稿一覧</p>
-<%= render 'list',keyword: @keyword, tag_lists: @tag_lists %>
-
-<% @myfavorite_posts.each do |post| %>
-<table>
-  <tr>
-    <td>
-      <%= link_to user_path(post.user.id) do %>
-        <%= image_tag post.user.profile_image.variant(resize_to_limit:[40,40]).processed %>
-      <%end%>
-    </td>
-    <td>
-      <%= link_to user_path(post.user.id) do %>
-        <%= post.user.nickname %></td>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-lg-3">
+      <%= render 'list',keyword: @keyword, tag_lists: @tag_lists %>
+    </div>
+    <div class = "col-lg-9">
+      <% @myfavorite_posts.each do |post| %>
+      <table>
+        <tr>
+          <td>
+            <%= link_to user_path(post.user.id) do %>
+              <%= image_tag post.user.profile_image.variant(resize_to_limit:[40,40]).processed %>
+            <%end%>
+          </td>
+          <td>
+            <%= link_to user_path(post.user.id) do %>
+              <%= post.user.nickname %></td>
+            <% end %>
+          <td>
+            <%= link_to post_path(post.id) do %>
+              <%= post.title %>
+            <%end%>
+          </td>
+          <td>
+            <% if post.favorited_by?(current_user) %>
+              ♥<%= post.favorites.count %> いいね
+            <% else %>
+              ♡<%= post.favorites.count %> いいね
+            <% end %>
+          </td>
+            <td><%= post.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+        </tr>
+      </table>
       <% end %>
-    <td>
-      <%= link_to post_path(post.id) do %>
-        <%= post.title %>
-      <%end%>
-    </td>
-    <td>
-      <% if post.favorited_by?(current_user) %>
-        ♥<%= post.favorites.count %> いいね
-      <% else %>
-        ♡<%= post.favorites.count %> いいね
-      <% end %>
-    </td>
-      <td><%= post.created_at.strftime('%Y/%m/%d %H:%M') %></td>
-  </tr>
-</table>
-
-<% end %>
+    </div>
+  </div>
+</div>

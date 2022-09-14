@@ -1,43 +1,50 @@
 <h1>投稿一覧</h1>
-<%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-lg-3">
+      <%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %>
+    </div>
+    <div class = "col-lg-9">
+      <% @posts.each do |post| %>
+        <table>
+          <tr>
+            <td>
+              【<%= post.genre.name %>】
+              <%= link_to post_path(post.id) do %>
+                <%= post.title %>
+              <% end %>
+            </td>
+            <td>投稿者：<%= post.user.nickname %></td>
+          </tr>
+          <tr>
+            <td><%= post.created_at.strftime('%Y/%m/%d  %H:%M') %>
+              <% if post.favorited_by?(current_user) %>
+                  ♥<%= post.favorites.count %>
+              <% else %>
+                  ♡<%= post.favorites.count %>
+              <% end %>
+            </td>
+            <td>
+              (<%= post.post_comments.count %>)
+            </td>
+            <td><%#= link_to list.tag_name, posts_path(tag_id: list.id)%>
+              <% post.tags.each do |tag| %>
+                <%=link_to "##{tag.tag_name}",posts_path(tag_id: tag.id) %>
+              <%end%>
+            </td>
+          </tr>
+          <%#= @genre.name %>
 
-<% @posts.each do |post| %>
-  <table>
-    <tr>
-      <td>
-        【<%= post.genre.name %>】
-        <%= link_to post_path(post.id) do %>
-          <%= post.title %>
-        <% end %>
-      </td>
-      <td>投稿者：<%= post.user.nickname %></td>
-    </tr>
-    <tr>
-      <td><%= post.created_at.strftime('%Y/%m/%d  %H:%M') %>
-        <% if post.favorited_by?(current_user) %>
-            ♥<%= post.favorites.count %>
-        <% else %>
-            ♡<%= post.favorites.count %>
-        <% end %>
-      </td>
-      <td>
-        (<%= post.post_comments.count %>)
-      </td>
-      <td><%#= link_to list.tag_name, posts_path(tag_id: list.id)%>
-        <% post.tags.each do |tag| %>
-          <%=link_to "##{tag.tag_name}",posts_path(tag_id: tag.id) %>
-        <%end%>
-      </td>
-    </tr>
-    <%#= @genre.name %>
+          <%# if post.post_images.attached? %>
+            <%# post.post_images.each do |image| %>
+              <%#= image_tag image.variant(resize: '100x100').processed %>
+            <%# end %>
+          <%# end %>
+        </table>
+      <% end %>
+      <%= paginate @posts %>
+    </div>
+  </div>
+</div>
 
-    <%# if post.post_images.attached? %>
-      <%# post.post_images.each do |image| %>
-        <%#= image_tag image.variant(resize: '100x100').processed %>
-      <%# end %>
-    <%# end %>
-  </table>
 
-<% end %>
-
-<%= paginate @posts %>
