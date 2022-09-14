@@ -2,37 +2,68 @@
 <html>
   <head>
     <title>Gardening</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <header>
-      <%#= user_signed_in? %>
-      <% if user_signed_in? %>
-        ようこそ、<%= current_user.nickname %>さん！会員ページにログイン中
-        <%= link_to "マイページ", user_path(current_user.id) %>
-        <%= link_to "投稿一覧", posts_path %>
-        <%= link_to "会員一覧", users_path %>
-        <%= link_to "新規投稿", new_post_path %>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-
-      <% elsif admin_signed_in? %>
-        (´･ω･`)管理者画面
-        <%= link_to "投稿一覧", admin_root_path %>
-        <%= link_to "会員一覧", admin_users_path %>
-        <%#= link_to "コメント一覧", admin_●●_path %>
-        <%= link_to "ジャンル一覧", admin_genres_path %>
-        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-      <% else %>
-        <%= link_to "ログイン", new_user_session_path,class: 'nav-link text-black' %>
-        <%= link_to 'ゲストログイン（閲覧用）', guests_guest_sign_in_path, method: :post %>
-      <% end %>
-
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+            <% if user_signed_in? %>
+              ようこそ、<%= current_user.nickname %>さん！会員ページにログイン中
+              <li class="nav-item">
+                <%= link_to "マイページ", user_path(current_user.id),class: 'nav-link text-black' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "投稿一覧", posts_path,class: 'nav-link text-black' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "会員一覧", users_path,class: 'nav-link text-black' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "新規投稿", new_post_path,class: 'nav-link text-black' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: 'nav-link text-black' %>
+              </li>
+            <% elsif admin_signed_in? %>
+              (´･ω･`)管理者画面
+              <li class="nav-item">
+                <%= link_to "投稿一覧", admin_root_path,class: 'nav-link text-black' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "会員一覧", admin_users_path,class: 'nav-link text-black' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ジャンル一覧", admin_genres_path,class: 'nav-link text-black' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete,class: 'nav-link text-black' %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to "ログイン", new_user_session_path,class: 'nav-link text-black' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'ゲストログイン（閲覧用）', guests_guest_sign_in_path, method: :post,class: 'nav-link text-black' %>
+              </li>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
     <% flash.each do |message_type, message| %>
       <%= message %>
