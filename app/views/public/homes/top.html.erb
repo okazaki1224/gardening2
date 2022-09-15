@@ -1,10 +1,10 @@
-<h1>トップ画面（３件まで）</h1>
-<div class = "container">
+<h1>トップ画面（７件まで）</h1>
+<div class = "container-fluid">
   <div class = "row">
-    <div class = "col-lg-3">
+    <div class = "col-md-3">
       <%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %>
     </div>
-    <div class = "col-lg-9">
+    <div class = "col-md-9">
       <% @posts.each do |post| %>
         <table>
           <tr>
