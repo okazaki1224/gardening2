@@ -5,7 +5,7 @@ class Public::PostsController < ApplicationController
 
   def new
     @post=Post.new
-    @tag_lists=Tag.all
+    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
   end
 
   def create
@@ -26,7 +26,7 @@ class Public::PostsController < ApplicationController
   def search
     @posts = Post.search(params[:keyword])
     @keyword = params[:keyword]
-    @tag_lists=Tag.all
+    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
     render "index"
   end
 
@@ -40,18 +40,18 @@ class Public::PostsController < ApplicationController
     else
       posts = Post.all.publish.order(created_at: :desc)
     end
-    @tag_lists=Tag.all
+    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
     @posts=Kaminari.paginate_array(posts.publish).page(params[:page]).per(10)
   end
 
   def show
     @post=Post.find(params[:id])
     @post_comment=PostComment.new
-    @tag_lists=Tag.all
+    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
   end
 
   def edit
-    @tag_lists=Tag.all
+    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
     @post=Post.find(params[:id])
     @post_comment=PostComment.new
 
@@ -61,7 +61,7 @@ class Public::PostsController < ApplicationController
     # @tag=Tag.find(params[:tag_id])
     @post=Post.find(params[:id])
     @post_comment=PostComment.new
-    @tag_lists=Tag.all
+    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
     tag_list=params[:post][:tag_name].split(/[[:blank:]]/)
     @post.save_posts(tag_list)
     @post.update(post_params)

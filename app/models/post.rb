@@ -8,8 +8,16 @@ class Post < ApplicationRecord
   #ジャンルを複数設定したい場合は中間テーブルを作る
   has_one_attached :image
   has_many_attached :post_images
-  
+
   validates:title, presence:true#タイトルは必須
+
+  def get_photo(width, height)
+    unless post_images.attached?
+      file_path=Rails.root.join('app/assets/images/no_image.jpg')
+      post_images.attach(io: File.open(file_path),filename: 'default-image.jpg',content_type: 'image/jpeg')
+    end
+    post_images[0].variant(resize_to_limit:[width,height]).processed
+  end
 
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)

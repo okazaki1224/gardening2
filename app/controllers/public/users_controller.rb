@@ -5,6 +5,7 @@ class Public::UsersController < ApplicationController
 
   def myfavorites
     @tag_lists=Tag.all
+    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
     #@user=User.find(params[:id])
     myfavorites = Favorite.where(user_id: @user.id).pluck(:post_id)
     @myfavorite_posts = Post.find(myfavorites)
@@ -12,17 +13,16 @@ class Public::UsersController < ApplicationController
 
   def index
     @users=User.all
-    @tag_lists=Tag.all
+    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
   end
 
   def show
-    @tag_lists=Tag.all
-    #@user=User.find(params[:id])
+    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
     @posts=@user.posts
   end
 
   def edit
-    @tag_lists=Tag.all
+    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
     #@user=User.find(params[:id])
   end
 

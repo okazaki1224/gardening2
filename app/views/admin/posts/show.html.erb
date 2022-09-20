@@ -25,7 +25,7 @@
   <tr>
 
     <td>
-    <%= image_tag post_comment.user.get_profile_image(50,50) %>
+    <%= image_tag post_comment.user.get_profile_image(50,50), class:"mt-3 rounded-circle"; %>
     <%= post_comment.comment %>
     <%= post_comment.user.nickname %>
     <%= post_comment.created_at.strftime('%Y/%m/%d') %>

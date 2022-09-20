@@ -1,59 +1,64 @@
 <h1>会員情報詳細</h1>
-<div class = "container">
-  <div class = "row">
-    <div class = "col-lg-3">
-      <%= render 'list',keyword: @keyword, tag_lists: @tag_lists %>
-    </div>
-    <div class = "col-lg-9">
-      <table>
-        <tr>
-          <td><%= image_tag @user.get_profile_image(200,200) %></td>
-        </tr>
-        <tr><td>
-          <%= link_to user_path(@user.id) do %>
-            <%= @user.nickname %>
-          <%end%>
-        </td></tr>
-        <tr>
-          <td><%= @user.introduction %></td>
-        </tr>
-        <tr>
-          <td>
+<div class = "container-fluid">
+  <div class = "card m-5">
+    <div class="row no-gutters">
+      <div class="col-md-3">
+        <%= image_tag @user.get_profile_image(150,150),class:"ml-2 rounded-circle" %>
+      </div>
+      <div class="col-md-9">
+        <div class="card-body">
+          <strong><h1 class="card-title">
+            <%= link_to user_path(@user.id) do %>
+              <%= @user.nickname %>
+            <%end%>
+          </h1></strong>
+          <p class="card-text">
+            <%= @user.introduction %>
+          </p>
+          <p class="card-text">
+            <%= link_to "お気に入り", myfavorites_user_path(@user) %>｜
             <% if @user==current_user %>
               <%= link_to"プロフィール編集",edit_user_path(@user) %>
             <%end%>
-          </td>
-        </tr>
-        <tr>
-          <td><%= link_to "いいねした投稿", myfavorites_user_path(@user) %></td>
-        </tr>
-      </table>
-      ～以下投稿履歴～
-
-      <% @posts.each do |post| %>
-        <table>
-          <tr>
-            <td>
-              <%= link_to post_path(post.id) do %>
-                <% if @user==current_user && post.post_status=="unpublish" %>
-                  【非公開】
-                <% elsif @user==current_user && post.post_status=="draft" %>
-                  【下書き】
-                <% end %>
-                <%= post.title %>
-              <%end%>
-            </td>
-            <td>
-              <% if post.favorited_by?(current_user) %>
-                ♥<%= post.favorites.count %> いいね
-              <% else %>
-                ♡<%= post.favorites.count %> いいね
-              <% end %>
-            </td>
-            <td><%= post.created_at.strftime('%Y/%m/%d') %></td>
-          </tr>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="row">
+      <div class = "col-md-3">
+        <%= render 'list',keyword: @keyword, tag_lists: @tag_lists %>
+      </div>
+      <div class = "col-md-9">
         </table>
-      <%end%>
+        ～以下投稿履歴～
+        <% @posts.each do |post| %>
+          <table>
+            <tr>
+              <td><%= image_tag @user.get_profile_image(50,50),class:"ml-3 rounded-circle" %></td>
+              <td>　</td>
+              <td>
+                <%= link_to post_path(post.id) do %>
+                  <% if @user==current_user && post.post_status=="unpublish" %>
+                    【非公開】
+                  <% elsif @user==current_user && post.post_status=="draft" %>
+                    【下書き】
+                  <% end %>
+                  <%= post.title %>
+                <%end%>
+              </td>
+              <td>（<%= post.created_at.strftime('%Y/%m/%d') %>）</td>
+              <td>
+                <% if post.favorited_by?(current_user) %>
+                  ♥<%= post.favorites.count %> いいね
+                <% else %>
+                  ♡<%= post.favorites.count %> いいね
+                <% end %>
+              </td>
+
+            </tr>
+          </table>
+        <%end%>
 
     </div>
   </div>
