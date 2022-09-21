@@ -16,9 +16,11 @@
             <%= @user.introduction %>
           </p>
           <p class="card-text">
-            <%= link_to "お気に入り", myfavorites_user_path(@user) %>｜
+            <%= link_to myfavorites_user_path(@user) do %>
+              <%= @user.nickname %>さんのお気に入り
+            <% end %>
             <% if @user==current_user %>
-              <%= link_to"プロフィール編集",edit_user_path(@user) %>
+              ｜<%= link_to"プロフィール編集",edit_user_path(@user) %>
             <%end%>
           </p>
         </div>

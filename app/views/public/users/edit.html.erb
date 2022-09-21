@@ -18,11 +18,11 @@
         </tr>
         <tr>
           <td><%= f.label :ニックネーム（Nickname） %></td>
-          <td><%= f.text_field :nickname %></td>
+          <td><%= f.text_field :nickname,placeholder:"３～10文字" %></td>
         </tr>
         <tr>
           <td><%= f.label :自己紹介（Introduction） %></td>
-          <td><%= f.text_area :introduction,size: "50x3" %></td>
+          <td><%= f.text_area :introduction,size: "50x3",placeholder:"140文字以内" %></td>
         </tr>
         <tr>
           <td><%= f.label :プロフィール画像（FirstName） %></td>
@@ -33,8 +33,8 @@
           <td><%= f.email_field :email, autofocus: true, autocomplete: "email",size: 50 %></td>
         </tr>
         <tr>
-          <td><%= f.label :パスワード（６文字以上） %></td>
-          <td><%= f.password_field :password, autocomplete: "new-password" %></td>
+          <td><%= f.label :パスワード（Password） %></td>
+          <td><%= f.password_field :password, autocomplete: "new-password" ,placeholder:"６文字以上" %></td>
         </tr>
         <tr>
           <td><%= f.label :パスワード（確認用） %></td>
