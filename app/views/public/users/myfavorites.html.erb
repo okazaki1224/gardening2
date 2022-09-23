@@ -1,38 +1,38 @@
 <p>いいねした投稿一覧</p>
-<div class = "container">
+
+<div class = "container-fluid">
   <div class = "row">
-    <div class = "col-lg-3">
-      <%= render 'list',keyword: @keyword, tag_lists: @tag_lists %>
+    <div class = "col-md-3">
+      <%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %>
     </div>
-    <div class = "col-lg-9">
+    <div class = "col-md-6 offset-md-1">
       <% @myfavorite_posts.each do |post| %>
-      <table>
-        <tr>
-          <td>
-            <%= link_to user_path(post.user.id) do %>
-              <%= image_tag post.user.profile_image.variant(resize_to_limit:[40,40]).processed %>
-            <%end%>
-          </td>
-          <td>
-            <%= link_to user_path(post.user.id) do %>
-              <%= post.user.nickname %></td>
-            <% end %>
-          <td>
-            <%= link_to post_path(post.id) do %>
-              <%= post.title %>
-            <%end%>
-          </td>
-          <td>
-            <% if post.favorited_by?(current_user) %>
-              ♥<%= post.favorites.count %> いいね
-            <% else %>
-              ♡<%= post.favorites.count %> いいね
-            <% end %>
-          </td>
-            <td><%= post.created_at.strftime('%Y/%m/%d %H:%M') %></td>
-        </tr>
-      </table>
+          <table>
+            <tr>
+              <td><%= image_tag @user.get_profile_image(50,50),class:"ml-3 rounded-circle" %></td>
+              <td>　</td>
+              <td>
+                <%= link_to post_path(post.id) do %>
+                  <% if @user==current_user && post.post_status=="unpublish" %>
+                    【非公開】
+                  <% elsif @user==current_user && post.post_status=="draft" %>
+                    【下書き】
+                  <% end %>
+                  <%= post.title %>
+                <%end%>
+              </td>
+              <td>　</td>
+              <td><i class="far fa-comment text-dark"></i><%= post.post_comments.count %></td>
+              <td>　</td>
+              <td>
+                <% if post.favorited_by?(current_user) %>
+                    <i class="fas fa-thumbs-up"></i><%= post.favorites.count %>
+                  <% else %>
+                    <i class="far fa-thumbs-up"></i><%= post.favorites.count %>
+                <% end %>
+              </td>
+            </tr>
+          </table>
       <% end %>
-    </div>
-  </div>
 </div>
+      <%#= paginate @posts %>

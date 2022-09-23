@@ -52,9 +52,9 @@
               <td>（<%= post.created_at.strftime('%Y/%m/%d') %>）</td>
               <td>
                 <% if post.favorited_by?(current_user) %>
-                  ♥<%= post.favorites.count %> いいね
-                <% else %>
-                  ♡<%= post.favorites.count %> いいね
+                    <i class="fas fa-thumbs-up"></i><%= post.favorites.count %>
+                  <% else %>
+                    <i class="far fa-thumbs-up"></i><%= post.favorites.count %>
                 <% end %>
               </td>
 
