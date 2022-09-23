@@ -1,15 +1,14 @@
-<p>いいねした投稿一覧</p>
-
 <div class = "container-fluid">
   <div class = "row">
     <div class = "col-md-3">
       <%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %>
     </div>
     <div class = "col-md-6 offset-md-1">
+      <h3>いいねした投稿一覧</h3>
       <% @myfavorite_posts.each do |post| %>
           <table>
             <tr>
-              <td><%= image_tag @user.get_profile_image(50,50),class:"ml-3 rounded-circle" %></td>
+              <td><%= image_tag post.user.get_profile_image(50,50),class:"m-2 rounded-circle" %></td>
               <td>　</td>
               <td>
                 <%= link_to post_path(post.id) do %>

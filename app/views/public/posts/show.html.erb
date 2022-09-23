@@ -1,5 +1,5 @@
 <h1>投稿詳細</h1>
-<div class = "container">
+<div class = "container-fluid">
   <div class = "row">
     <div class = "col-lg-3">
       <%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %></br>
@@ -11,7 +11,9 @@
         <div>
           <% if @post.post_images.attached? %>
             <% @post.post_images.each do |image| %>
-              <%= image_tag image.variant(resize_to_limit:[300,300]).processed %>
+              <%= link_to image, "data-lightbox": image do %>
+              <%= image_tag image.variant(resize_to_limit:[150,150]).processed %>
+              <% end %>
             <% end %>
           <% else %>
             <%= image_tag 'no_image.jpg' %>
@@ -47,14 +49,14 @@
           <% @post.post_comments.each do |post_comment| %>
           <tr>
             <td>
-            <%= image_tag post_comment.user.get_profile_image(50,50) %>
-            <%= post_comment.user.nickname %>
-            <%= post_comment.created_at.strftime('%Y/%m/%d') %>
-            <% if post_comment.is_deleted==false %>
-              <%= post_comment.comment %>
-            <% else %>
-              ≪このコメントは削除されました≫
-            <% end %>
+              <%= image_tag post_comment.user.get_profile_image(50,50) %>
+              <%= post_comment.user.nickname %>
+              <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+              <% if post_comment.is_deleted==false %>
+                <%= post_comment.comment %>
+              <% else %>
+                ≪このコメントは削除されました≫
+              <% end %>
             </td>
           </tr>
           <% end %>
