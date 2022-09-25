@@ -24,16 +24,37 @@ class Public::PostsController < ApplicationController
   end
 
   def search
-    @posts = Post.search(params[:keyword])
-    @keyword = params[:keyword]
+     if params[:keyword].present?
+      begin
+        posts=Post.publish.search(params[:keyword]).page(params[:page])
+      rescue StandardError => e
+        redirect_to posts_path, alert: e.message
+      end
+      #paramsの中身が[:search]になっているがkeywordに統一していいのではないか
+    elsif params[:tag_id].present?
+      @tag=Tag.find(params[:tag_id])
+      posts=@tag.posts.publish.order(created_at: :desc)
+    else
+      posts = Post.all.publish.order(created_at: :desc)
+    end
+    # byebug
     @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
+    @posts=posts.page(params[:page]).per(30)
+
+    #@posts = Post.search(params[:keyword])
+    @keyword = params[:keyword]
+    #@tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
     render "index"
   end
 
   def index
     if params[:keyword].present?
-      posts=Post.publish.search(params[keywrod])
-      #paramsの中身が[:search]になってるけどkeywordに統一していいのでは
+      begin
+        posts=Post.publish.search(params[:keywrod])
+      rescue StandardError => e
+        redirect_to posts_path, alert: e.message
+      end
+      #posts.rbに定義したﾒｿｯﾄﾞはkeywordで：がついてないけどOK
     elsif params[:tag_id].present?
       @tag=Tag.find(params[:tag_id])
       posts=@tag.posts.publish.order(created_at: :desc)
@@ -41,7 +62,12 @@ class Public::PostsController < ApplicationController
       posts = Post.all.publish.order(created_at: :desc)
     end
     @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
-    @posts=Kaminari.paginate_array(posts.publish).page(params[:page]).per(10)
+    @genres=Genre.all
+    if params[:genre_id]
+      @posts=posts.where(genre_id: params[:genre_id]).page(params[:page]).per(30)
+    else
+      @posts=posts.page(params[:page]).per(30)
+    end
   end
 
   def show

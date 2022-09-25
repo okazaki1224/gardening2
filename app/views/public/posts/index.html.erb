@@ -1,15 +1,15 @@
-<h1>投稿一覧</h1>
+<h1>投稿一覧(全<%= @posts.total_count %>件)</h1>
 <div class = "container-fluid">
   <div class = "row">
     <div class = "col-md-3">
       <%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %>
     </div>
-    <div class = "col-md-6 offset-md-1">
+    <div class = "col-md-5 offset-md-1">
       <% @posts.each do |post| %>
         <div class="card">
           <div class="row no-gutters">
             <div class="col-md-4">
-              <%= image_tag post.user.get_profile_image(60,60), class:"m-3 rounded-circle";  %>
+              <%= image_tag post.user.get_profile_image(60,60), class:"m-2 rounded-circle";  %>
               <%#= post.genre.name %>
             </div>
             <div class="col-md-8">
@@ -39,9 +39,22 @@
               </div>
             </div>
           </div>
-        <div class="col-md-2">
         </div>
       <% end %>
+    </div>
+    <div class="col-md-2 offset-md-1">
+      <% if @posts.total_count!=0 %>
+        <% @genres.each do |genre| %>
+          <table>
+            <tr>
+              <td><%= link_to genre.name, posts_path(genre_id: genre.id),class:"btn btn-success" %></td>
+            </tr>
+            <tr>　</tr>
+          </table>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
       <%= paginate @posts %>
 

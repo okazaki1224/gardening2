@@ -20,11 +20,11 @@ class Post < ApplicationRecord
   end
 
   def favorited_by?(user)
-    favorites.exists?(user_id: user.id)
+    favorites.where(user_id: user.id).exists?
   end
   #あいまい検索
   def self.search(keyword)
-    where(["title LIKE? OR body LIKE?", "%#{keyword}%","#{keyword}%"])
+    where("title LIKE? OR body LIKE?", "%#{keyword}%","#{keyword}%")
   end
 
   def save_posts(tags)

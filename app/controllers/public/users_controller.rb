@@ -19,6 +19,7 @@ class Public::UsersController < ApplicationController
   def show
     @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
     @posts=@user.posts
+
   end
 
   def edit
@@ -27,6 +28,7 @@ class Public::UsersController < ApplicationController
   end
 
   def update
+    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
     @user=current_user
     if @user.update(user_params)
       redirect_to user_path(@user.id),notice: "プロフィールを更新しました！"

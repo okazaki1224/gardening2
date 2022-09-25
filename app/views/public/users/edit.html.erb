@@ -18,7 +18,7 @@
         </tr>
         <tr>
           <td><%= f.label :ニックネーム（Nickname） %></td>
-          <td><%= f.text_field :nickname,placeholder:"３～10文字" %></td>
+          <td><%= f.text_field :nickname,placeholder:"３～20文字" %></td>
         </tr>
         <tr>
           <td><%= f.label :自己紹介（Introduction） %></td>
@@ -44,9 +44,7 @@
           <td></td>
           <td>
             <%= f.submit "更新する",class:"btn btn-success" %>
-          </td>
-          <td>
-            <%= link_to "退会する", unsubscribe_path,class:"btn btn-danger" %>
+            <%= link_to "退会する", unsubscribe_path,class:"btn btn-outline-danger" %>
           </td>
         </tr>
       </table>
