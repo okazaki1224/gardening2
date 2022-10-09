@@ -19,6 +19,7 @@ class Public::PostsController < ApplicationController
       redirect_to posts_path
     else
       flash.now[:alert]="投稿に失敗しました"
+      @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
       render :new
     end
   end
