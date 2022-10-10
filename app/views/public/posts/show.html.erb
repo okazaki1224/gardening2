@@ -33,9 +33,13 @@
               <p class="card-text">
                 <span>
                   <% if user_signed_in? && @post.favorited_by?(current_user) %>
-                    <i class="fas fa-thumbs-up"></i><%= @post.favorites.count %>
+                    <%= link_to post_favorites_path(@post), method: :delete do %>
+                      <i class="fas fa-thumbs-up text-dark"></i><%= @post.favorites.count %>
+                    <% end %>
                   <% else %>
-                    <i class="far fa-thumbs-up"></i><%= @post.favorites.count %>
+                    <%= link_to post_favorites_path(@post), method: :post do %>
+                      <i class="far fa-thumbs-up text-dark"></i><%= @post.favorites.count %>
+                    <% end %>
                   <% end %>
                 </span>
                 <span>　</span>

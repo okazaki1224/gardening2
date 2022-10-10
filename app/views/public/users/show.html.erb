@@ -56,9 +56,9 @@
                 </h5>
                 <p class="card-text">
                   <% if post.favorited_by?(current_user) %>
-                      <i class="fas fa-thumbs-up"></i><%= post.favorites.count %>
-                    <% else %>
-                      <i class="far fa-thumbs-up"></i><%= post.favorites.count %>
+                    <i class="fas fa-thumbs-up"></i><%= post.favorites.count %>
+                  <% else %>
+                    <i class="far fa-thumbs-up"></i><%= post.favorites.count %>
                   <% end %>
                   <span>　</span>
                   <i class="far fa-comment text-dark"></i><%= post.post_comments.count %>

@@ -11,7 +11,6 @@
           <div class="row no-gutters">
             <div class="col-md-4">
               <%= image_tag post.user.get_profile_image(60,60), class:"m-2 rounded-circle";  %>
-              <%#= post.genre.name %>
             </div>
             <div class="col-md-8">
               <div class="card-body">
@@ -24,12 +23,18 @@
                   <i class="fas fa-user"></i><%= post.user.nickname %>
                 </p>
                 <p class="card-text">
-                  <i class="far fa-comment text-dark"></i><%= post.post_comments.count %>
+                  <%= link_to post_path(post.id) do %>
+                    <i class="far fa-comment text-dark"></i><%= post.post_comments.count %>
+                  <% end %>
                   <span>　</span>
                   <% if post.favorited_by?(current_user) %>
-                    <i class="fas fa-thumbs-up"></i><%= post.favorites.count %>
+                    <%= link_to post_favorites_path(post), method: :delete do %>
+                      <i class="fas fa-thumbs-up text-dark"></i><%= post.favorites.count %>
+                    <% end %>
                   <% else %>
-                    <i class="far fa-thumbs-up"></i><%= post.favorites.count %>
+                    <%= link_to post_favorites_path(post), method: :post do %>
+                      <i class="far fa-thumbs-up text-dark"></i><%= post.favorites.count %>
+                    <% end %>
                   <% end %>
                   <span>　</span>
                   <small class="text-muted"><%= post.created_at.strftime('%Y/%m/%d  %H:%M') %></small>
