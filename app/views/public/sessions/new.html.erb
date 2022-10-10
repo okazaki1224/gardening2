@@ -1,12 +1,12 @@
-<h2>会員ログイン</h2>
+<h2><i class="fas fa-fan"></i>会員ログイン</h2>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 <table>
   <tr>
-    <td><%= f.label :メールアドレス %></td>
+    <td><i class="fas fa-fan"></i><%= f.label :メールアドレス %></td>
     <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
   </tr>
   <tr>
-    <td><%= f.label :パスワード（６文字以上） %></td>
+    <td><i class="fas fa-fan"></i><%= f.label :パスワード（６文字以上） %></td>
     <td><%= f.password_field :password, autocomplete: "new-password" %></td>
   </tr>
   <% if devise_mapping.rememberable? %>
