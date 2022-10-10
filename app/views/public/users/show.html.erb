@@ -1,4 +1,4 @@
-<h1>会員情報詳細</h1>
+<h1><i class="fas fa-fan"></i>会員情報詳細</h1>
 <div class = "container-fluid">
   <div class = "card m-5">
     <div class="row no-gutters">
@@ -27,41 +27,49 @@
       </div>
     </div>
   </div>
-    <div class="row">
-      <div class = "col-md-3">
-        <%= render 'list',keyword: @keyword, tag_lists: @tag_lists %>
-      </div>
-      <div class = "col-md-9">
-        </table>
-        ～以下投稿履歴～
-        <% @posts.each do |post| %>
-          <table>
-            <tr>
-              <td><%= image_tag @user.get_profile_image(50,50),class:"m-2 rounded-circle" %></td>
-              <td>　</td>
-              <td>
-                <%= link_to post_path(post.id) do %>
-                  <% if @user==current_user && post.post_status=="unpublish" %>
-                    【非公開】
-                  <% elsif @user==current_user && post.post_status=="draft" %>
-                    【下書き】
+  <div class="row">
+    <div class = "col-md-3">
+      <%= render 'list',keyword: @keyword, tag_lists: @tag_lists %>
+    </div>
+
+    <div class = "col-md-5 offset-md-1">
+      <i class="fas fa-fan"></i>投稿履歴
+
+
+      <% @posts.each do |post| %>
+        <div class="card">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <%= image_tag @user.get_profile_image(60,60),class:"m-2 rounded-circle" %>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= link_to post_path(post.id) do %>
+                    <% if @user==current_user && post.post_status=="unpublish" %>
+                      【非公開】
+                    <% elsif @user==current_user && post.post_status=="draft" %>
+                      【下書き】
+                    <% end %>
+                    <%= post.title %>
                   <% end %>
-                  <%= post.title %>
-                <%end%>
-              </td>
-              <td>（<%= post.created_at.strftime('%Y/%m/%d') %>）</td>
-              <td>
-                <% if post.favorited_by?(current_user) %>
-                    <i class="fas fa-thumbs-up"></i><%= post.favorites.count %>
-                  <% else %>
-                    <i class="far fa-thumbs-up"></i><%= post.favorites.count %>
-                <% end %>
-              </td>
-
-            </tr>
-          </table>
-        <%end%>
-
+                </h5>
+                <p class="card-text">
+                  <% if post.favorited_by?(current_user) %>
+                      <i class="fas fa-thumbs-up"></i><%= post.favorites.count %>
+                    <% else %>
+                      <i class="far fa-thumbs-up"></i><%= post.favorites.count %>
+                  <% end %>
+                  <span>　</span>
+                  <i class="far fa-comment text-dark"></i><%= post.post_comments.count %>
+                  <span>　</span>
+                  <small class="text-muted">（<%= post.created_at.strftime('%Y/%m/%d') %>）</small>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <%end%>
     </div>
   </div>
 </div>
