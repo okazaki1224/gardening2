@@ -1,9 +1,8 @@
 <h1><i class="fas fa-fan"></i>会員情報詳細</h1>
-<h3>左３か４使ってテンプレ表示</h3>
 
 <table>
   <tr>
-    <td><%= image_tag @user.get_profile_image(300,300) %></td>
+    <td><%= image_tag @user.get_profile_image(250,250) %></td>
   </tr>
   <tr><td>
     <%= link_to admin_user_path(@user.id) do %>
@@ -29,9 +28,12 @@
           <%= link_to admin_post_path(post.id) do %>
             <%= post.title %>
           <%end%>
+          <span>　</span>
+          <i class="far fa-thumbs-up text-dark"></i><%= post.favorites.count %>
+          <span>　</span>
+          <i class="far fa-comment text-dark"></i><%= post.post_comments.count %>
         </td>
-        <td>♥いいね</td>
-        <td><%= post.created_at.strftime('%Y/%m/%d') %></td>
+        <td>（<%= post.created_at.strftime('%Y/%m/%d') %>）</td>
       </tr>
     </table>
   <%end%>

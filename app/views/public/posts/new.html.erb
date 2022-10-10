@@ -16,13 +16,12 @@
       <%= form_with(model:[@tag,@post], local:true) do |f| %>
         <table>
           <tr>
-            <td>ジャンル━━━━━━━</td>
-            <td>
+            <td>ジャンル（必須）           <td>
               <%= f.select :genre_id, options_from_collection_for_select(Genre.all, :id, :name), include_blank: "ジャンルを選択して下さい" %>
             </td>
           </tr>
           <tr>
-            <td>タイトル━━━━━━━</td>
+            <td>タイトル（必須）</td>
             <td><%= f.text_field:title %></td>
           </tr>
           <tr>
@@ -35,7 +34,7 @@
           </tr>
           <tr>
             <td>タグ</td>
-            <td><%= f.text_field:tag_name, placeholder: "タグはｽﾍﾟｰｽで区切ってね" %></td>
+            <td><%= f.text_field:tag_name, placeholder: "ｽﾍﾟｰｽで区切ってね" %></td>
           </tr>
           <tr>
             <td>記事の公開</td>

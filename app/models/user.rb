@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   validates:last_name,presence: true
   validates:first_name,presence: true
-  validates:nickname,presence: true,uniqueness: true,length:{minimum:3,maximum:20}
+  validates:nickname,presence: true,uniqueness: true,length:{minimum:2,maximum:20}
   validates:introduction,length:{maximum:140}
 
   def get_profile_image(width,height)
