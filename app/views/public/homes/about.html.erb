@@ -1,15 +1,13 @@
-<h1>Public::Homes#about</h1>
+<h2>ローカルの変更部分を本番環境のアプリケーションに適用する</h2>
 <p>
-  やあ （´・ω・｀)</br>
-ようこそ、バーボンハウスへ。</br>
-このテキーラはサービスだから、まず飲んで落ち着いて欲しい。</br>
-
-うん、「また」なんだ。済まない。</br>
-仏の顔もって言うしね、謝って許してもらおうとも思っていない。</br>
-
-でも、このurlを見たとき、君は、きっと言葉では言い表せない「ときめき」みたいなものを感じてくれたと思う。</br>
-殺伐とした世の中で、そういう気持ちを忘れないで欲しい</br>
-そう思って、このページを作ったんだ。</br>
-
-じゃあ、注文を聞こうか。</br>
+  １．cd gardening</br>
+  ２．ファイルを編集・保存、gitにpushしてctrl+C</br>
+  ３．ssh -i ~/.ssh/practice-aws.pem ec2-user@*****</br>
+  ４．cd gardening2/</br>
+  ５．git pull origin main</br>
+  ６．sudo yum update（必要なら）</br>
+  ７．sudo kill $(cat tmp/pids/puma.pid)</br>
+  ８．rails s -e productionで</br>
 </p>
+ssh -i ~/.ssh/practice-aws.pem ec2-user@
+

@@ -41,7 +41,7 @@ class Public::PostsController < ApplicationController
     # byebug
     @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
     @posts=posts.page(params[:page]).per(30)
-
+    @genres=Genre.all
     #@posts = Post.search(params[:keyword])
     @keyword = params[:keyword]
     #@tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
