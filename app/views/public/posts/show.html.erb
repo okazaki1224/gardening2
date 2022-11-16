@@ -6,7 +6,7 @@
     </div>
     <div class = "col-md-5 offset-md-1">
       <% if @post.post_status != "publish" && @post.user != current_user %>
-       この記事は公開されていません(´･ω･`)
+       この記事は公開されていません。
       <% else %>
         <div class="card w-100 mx-auto mt-4 shadow-lg">
           <div class="row justify-content-around">
