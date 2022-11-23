@@ -5,7 +5,7 @@ class Public::PostsController < ApplicationController
 
   def new
     @post=Post.new
-    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
+    @tags=Tag.mapped
   end
 
   def create
@@ -19,7 +19,7 @@ class Public::PostsController < ApplicationController
       redirect_to posts_path
     else
       flash.now[:alert]="投稿に失敗しました"
-      @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
+      @tags=Tag.mapped
       render :new
     end
   end
@@ -31,7 +31,7 @@ class Public::PostsController < ApplicationController
       rescue StandardError => e
         redirect_to posts_path, alert: e.message
       end
-      #paramsの中身が[:search]になっているがkeywordに統一していいのではないか
+      #paramsの中身が[:search]になっていたのをkeywordに統一
     elsif params[:tag_id].present?
       @tag=Tag.find(params[:tag_id])
       posts=@tag.posts.publish.order(created_at: :desc)
@@ -39,12 +39,11 @@ class Public::PostsController < ApplicationController
       posts = Post.all.publish.order(created_at: :desc)
     end
     # byebug
-    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
+    @tags=Tag.mapped
     @posts=posts.page(params[:page]).per(30)
     @genres=Genre.all
     #@posts = Post.search(params[:keyword])
     @keyword = params[:keyword]
-    #@tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
     render "index"
   end
 
@@ -62,7 +61,7 @@ class Public::PostsController < ApplicationController
     else
       posts = Post.all.publish.order(created_at: :desc)
     end
-    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
+    @tags=Tag.mapped
     @genres=Genre.all
     if params[:genre_id]
       @posts=posts.where(genre_id: params[:genre_id]).page(params[:page]).per(30)
@@ -74,11 +73,11 @@ class Public::PostsController < ApplicationController
   def show
     @post=Post.find(params[:id])
     @post_comment=PostComment.new
-    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
+    @tags=Tag.mapped
   end
 
   def edit
-    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
+    @tags=Tag.mapped
     @post=Post.find(params[:id])
     @post_comment=PostComment.new
 
@@ -88,7 +87,7 @@ class Public::PostsController < ApplicationController
     # @tag=Tag.find(params[:tag_id])
     @post=Post.find(params[:id])
     @post_comment=PostComment.new
-    @tag_lists=Tag.find(Tagmap.group(:tag_id).order('count(post_id) desc').limit(30).pluck(:tag_id))
+    @tags=Tag.mapped
     tag_list=params[:post][:tag_name].split(/[[:blank:]]/)
     @post.save_posts(tag_list)
     @post.update(post_params)

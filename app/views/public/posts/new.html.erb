@@ -10,7 +10,7 @@
 <div class = "container-fluid">
   <div class = "row">
     <div class = "col-lg-3">
-      <%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %></br>
+      <%= render 'public/users/list',keyword: @keyword, tag_lists: @tags %></br>
     </div>
     <div class = "col-lg-9">
       <%= form_with(model:[@tag,@post], local:true) do |f| %>

@@ -2,7 +2,7 @@
 <div class = "container-fluid">
   <div class = "row no-gutters">
     <div class = "col-md-3">
-      <%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %></br>
+      <%= render 'public/users/list',keyword: @keyword, tag_lists: @tags %></br>
     </div>
     <div class = "col-md-5 offset-md-1">
       <% if @post.post_status != "publish" && @post.user != current_user %>

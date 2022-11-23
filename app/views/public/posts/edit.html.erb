@@ -1,7 +1,5 @@
 <h1>投稿編集</h1>
-<%= render 'public/users/list',keyword: @keyword, tag_lists: @tag_lists %></br>
-ここまで部分テンプレート</br>
-
+<%= render 'public/users/list',keyword: @keyword, tag_lists: @tags %></br>
 
 <%= form_with(model:[@tag,@post], local:true) do |f| %>
   <table>
