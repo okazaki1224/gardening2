@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
 post '/guests/guest_sign_in', to: 'public/guests#new_guest'
 
-#deviseで作ったものは一番上に！
+#deviseで作ったものは順番に注意
 devise_for :users,skip: [:passwords], controllers: {
 registrations: "public/registrations",
 sessions: 'public/sessions'
@@ -28,6 +28,10 @@ sessions: "admin/sessions"
   patch 'users/withdraw' => 'public/users#withdraw', as: "withdraw"
 
   scope module: :public do
+    get 'inquiries/new'
+    get 'inquiries/confirm'
+    get 'inquiries/thanks'
+    
     root to: 'homes#top'
     get '/about' => 'homes#about', as: "about"
 
