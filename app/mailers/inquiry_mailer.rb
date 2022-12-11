@@ -2,8 +2,8 @@ class InquiryMailer < ApplicationMailer
   def send_mail(inquiry)
     @inquiry=inquiry
     mail(
-      to: ENV["gcokzk1224@gmail.com"],#送信先アドレス
-      subject: "webサイトにお問い合わせがありました"#メールの
+      to: ENV["TOMAIL"],#送信先アドレス
+      subject: "お問い合わせ通知" + @contact.subject_i18n#メールの件名
     )
   end
 end
