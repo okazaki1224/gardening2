@@ -28,9 +28,10 @@ sessions: "admin/sessions"
   patch 'users/withdraw' => 'public/users#withdraw', as: "withdraw"
 
   scope module: :public do
-    get 'inquiries/new'
-    get 'inquiries/confirm'
-    get 'inquiries/thanks'
+    resources:inquiries,only:[:create, :new]
+    post 'inquiries/confirm'=> 'inquiries#confirm',as: "confirm"#postか？
+    post 'inquiries/back' => 'inquiries#back',as: "back"
+    get 'inquiries/thanks' => 'inquiries#thanks',as: "thanks"
     
     root to: 'homes#top'
     get '/about' => 'homes#about', as: "about"
