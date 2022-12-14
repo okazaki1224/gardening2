@@ -2,6 +2,7 @@ class Public::InquiriesController < ApplicationController
   def new
     #入力画面
     @inquiry=Inquiry.new
+    @tags=Tag.mapped
   end
 
   def confirm
@@ -33,7 +34,7 @@ class Public::InquiriesController < ApplicationController
 
 
   private
-    def inquiry_params
-      params.require(:inquiry).permit(:nickname, :email, :message)
-    end
+  def inquiry_params
+    params.require(:inquiry).permit(:nickname, :message)
   end
+end

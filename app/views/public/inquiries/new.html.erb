@@ -1,2 +1,39 @@
-<h1>Public::Inquiries#new</h1>
-<p>Find me in app/views/public/inquiries/new.html.erb</p>
+<% if @inquiry.errors.any? %>
+  <h3><%= @inquiry.errors.count %>件のエラーが発生しました。</h3>
+  <ul>
+    <% @inquiry.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+<h1><i class="fas fa-fan"></i>お問い合わせ</h1>
+<div class = "container-fluid">
+  <div class = "row">
+    <div class = "col-md-3">
+      <%= render 'public/users/list',keyword: @keyword, tag_lists: @tags %></br>
+    </div>
+    <div class = "col-md-5 offset-md-1">
+      <%= form_with model: @inquiry,url: new_inquiry_path do |f| %>
+        <table>
+          <tr>
+            <td><%= f.label :nickname, "お名前" %></td>
+          </tr>
+          <tr>
+            <td><%= f.text_field :nickname, autofocus: true, class: 'form-control' %></td>
+          </tr><tr>
+            <td><%= f.label :message, "本文" %></td>
+          </tr>
+          <tr>
+            <td><%= f.text_area :message, size:"50x8", class: 'form-control' %></td>
+          </tr>
+          <tr>
+            <td><%= f.submit '送信' %></td>
+          </tr>
+        </table>
+      <% end %>
+    </div>
+    <div class="col-md-2 offset-md-1">
+
+    </div>
+  </div>
+</div>
