@@ -29,8 +29,8 @@ sessions: "admin/sessions"
 
   scope module: :public do
     resources:inquiries,only:[:create, :new]
-    get 'inquiries/confirm'=> 'inquiries#confirm',as: "confirm"#postか？
-    post 'inquiries/back' => 'inquiries#back',as: "back"
+    post 'inquiries/confirm'=> 'inquiries#confirm',as: "confirm"
+    #post 'inquiries/back' => 'inquiries#back',as: "back"
     get 'inquiries/thanks' => 'inquiries#thanks',as: "thanks"
 
     root to: 'homes#top'

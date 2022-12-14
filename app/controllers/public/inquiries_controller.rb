@@ -8,14 +8,18 @@ class Public::InquiriesController < ApplicationController
   def confirm
     #確認画面
     @inquiry = Inquiry.new(inquiry_params)
+    @tags=Tag.mapped
     render :new unless @inquiry.valid?
   end
 
-  def back
-    #backアクションを定義しておくことで入力内容を保持したまま前に戻れる
-    @inquiry = Inquiry.new(inquiry_params)
-    render :new
-  end
+  #def back
+    #backアクションを定義しておくことで入力内容を保持したまま前に戻れるga
+    #ブラウザの戻るを押されるとエラーが出る場合があるため不採用
+    #@inquiry = Inquiry.new(inquiry_params)
+    #@tags=Tag.mapped
+    #render :new
+    #redirect_toに変えても上手くいかず
+  #end
 
   def create
     #実際に送信するアクション
@@ -24,12 +28,13 @@ class Public::InquiriesController < ApplicationController
       InquiryMailer.send_mail(@inquiry).deliver_now
       redirect_to thanks_path
     else
-      render :new
+      render :thanks
     end
   end
 
   def thanks
     #お問い合わせありがとう画面
+    @tags=Tag.mapped
   end
 
 

@@ -13,21 +13,22 @@
       <%= render 'public/users/list',keyword: @keyword, tag_lists: @tags %></br>
     </div>
     <div class = "col-md-5 offset-md-1">
-      <%= form_with model: @inquiry,url: new_inquiry_path do |f| %>
+      <%= form_with model: @inquiry,url: confirm_path do |f| %>
         <table>
           <tr>
-            <td><%= f.label :nickname, "お名前" %></td>
+            <td><%= f.label :nickname, "お名前（必須）" %></td>
           </tr>
           <tr>
-            <td><%= f.text_field :nickname, autofocus: true, class: 'form-control' %></td>
+            <td><%= f.text_field :nickname, autofocus: true, class: 'form-control', placeholder: "ニックネームでOKです" %></td>
           </tr><tr>
-            <td><%= f.label :message, "本文" %></td>
+            <td><%= f.label :message, "メッセージ（必須）" %></td>
           </tr>
           <tr>
-            <td><%= f.text_area :message, size:"50x8", class: 'form-control' %></td>
+            <td><%= f.text_area :message, size:"50x8", class: 'form-control',
+                placeholder: "ご意見、感想、質問、通報など" %></td>
           </tr>
           <tr>
-            <td><%= f.submit '送信' %></td>
+            <td><%= f.submit '確認画面へ進む', class:"btn btn-primary" %></td>
           </tr>
         </table>
       <% end %>
