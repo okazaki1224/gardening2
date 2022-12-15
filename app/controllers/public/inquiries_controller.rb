@@ -1,4 +1,6 @@
 class Public::InquiriesController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     #入力画面
     @inquiry=Inquiry.new
@@ -21,20 +23,11 @@ class Public::InquiriesController < ApplicationController
     #redirect_toに変えても上手くいかず
   #end
 
-  def create
-    #実際に送信するアクション
-    @inquiry = Inquiry.new(inquiry_params)
-    if @inquiry.save
-      InquiryMailer.send_mail(@inquiry).deliver_now
-      redirect_to thanks_path
-    else
-      render :thanks
-    end
-  end
-
   def thanks
     #お問い合わせありがとう画面
     @tags=Tag.mapped
+    @inquiry = Inquiry.new(inquiry_params)
+    InquiryMailer.send_mail(@inquiry).deliver
   end
 
 

@@ -3,7 +3,7 @@ class InquiryMailer < ApplicationMailer
     @inquiry=inquiry
     mail(
       to: ENV["TOMAIL"],#送信先アドレス
-      subject: "お問い合わせ通知" + @contact.subject_i18n#メールの件名
+      subject: "お問い合わせがありました"#件名
     )
   end
 end
