@@ -31,7 +31,7 @@ sessions: "admin/sessions"
     resources:inquiries,only:[:new]
     post 'inquiries/confirm'=> 'inquiries#confirm',as: "confirm"
     #post 'inquiries/back' => 'inquiries#back',as: "back"
-    post 'inquiries/thanks' => 'inquiries#thanks',as: "thanks"
+    get 'inquiries/thanks' => 'inquiries#thanks',as: "thanks"
 
     root to: 'homes#top'
     get '/about' => 'homes#about', as: "about"
