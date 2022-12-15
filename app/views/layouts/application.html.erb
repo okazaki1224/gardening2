@@ -25,10 +25,10 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
             <% if user_signed_in? %>
-              ようこそ、<%= current_user.nickname %>さん！会員ページにログイン中
+              ようこそ、<%= current_user.nickname %>さん！
               <li class="nav-item">
                 <%= link_to user_path(current_user.id),class: 'nav-link text-black' do %>
-                  <i class="fas fa-user"></i>ﾏｲﾍﾟｰｼﾞ
+                  <i class="fas fa-user"></i>マイページ
                 <% end %>
               </li>
               <li class="nav-item">
@@ -48,7 +48,7 @@
               </li>
               <li class="nav-item">
                 <%= link_to destroy_user_session_path, method: :delete,class: 'nav-link text-black' do %>
-                  <i class="fas fa-sign-out-alt"></i>ﾛｸﾞｱｳﾄ
+                  <i class="fas fa-sign-out-alt"></i>ログアウト
                 <% end %>
               </li>
             <% elsif admin_signed_in? %>
@@ -67,10 +67,14 @@
               </li>
             <% else %>
               <li class="nav-item">
-                <%= link_to "ログイン", new_user_session_path,class: 'nav-link text-black' %>
+                <%= link_to new_user_session_path,class: 'nav-link text-black' do %>
+                  <i class="fas fa-sign-in-alt"></i>ログイン
+                <% end %>
               </li>
               <li class="nav-item">
-                <%= link_to 'ゲストログイン（閲覧用）', guests_guest_sign_in_path, method: :post,class: 'nav-link text-black' %>
+                <%= link_to guests_guest_sign_in_path, method: :post,class: 'nav-link text-black' do %>
+                  <i class="fas fa-user-secret"></i>ゲストログイン
+                <% end %>
               </li>
             <% end %>
             </ul>
