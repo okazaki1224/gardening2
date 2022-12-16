@@ -22,12 +22,12 @@ class Public::InquiriesController < ApplicationController
     #render :new
     #redirect_toに変えても上手くいかず
   #end
-  
+
   def create
     @tags=Tag.mapped
     @inquiry = Inquiry.new(inquiry_params)
     InquiryMailer.send_mail(@inquiry).deliver
-    redirect_to thanks_path
+    redirect_to "/inquiries/thanks"
   end
 
   def thanks
