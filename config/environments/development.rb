@@ -78,6 +78,7 @@ Rails.application.configure do
 
   config.hosts << "bd6e078ff8824632ba543f74d7c684cf.vfs.cloud9.us-east-1.amazonaws.com"
 
+  config.action_mailer.default_url_options = { host: 'oniwanotomo.com', port: 3000}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       port: 587,
