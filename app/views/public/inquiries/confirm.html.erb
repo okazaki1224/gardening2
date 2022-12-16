@@ -27,7 +27,7 @@
           <td style="white-space: pre-wrap;"><%= @inquiry.message %></td>
         </tr>
       </table>
-      <%= form_with model: @inquiry, url: thanks_path, local: true do |f| %>
+      <%= form_with model: @inquiry, local: true do |f| %>
         <%= f.hidden_field :nickname %>
         <%= f.hidden_field :message %>
         <div>

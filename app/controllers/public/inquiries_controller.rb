@@ -15,19 +15,24 @@ class Public::InquiriesController < ApplicationController
   end
 
   #def back
-    #backアクションを定義しておくことで入力内容を保持したまま前に戻れるga
+    #backアクションを定義しておくことで入力内容を保持したまま前に戻れるが
     #ブラウザの戻るを押されるとエラーが出る場合があるため不採用
     #@inquiry = Inquiry.new(inquiry_params)
     #@tags=Tag.mapped
     #render :new
     #redirect_toに変えても上手くいかず
   #end
-
-  def thanks
-    #お問い合わせありがとう画面
+  
+  def create
     @tags=Tag.mapped
     @inquiry = Inquiry.new(inquiry_params)
     InquiryMailer.send_mail(@inquiry).deliver
+    redirect_to thanks_path
+  end
+
+  def thanks
+    #お問い合わせありがとう画面(´･ω･`)ここまで
+    @tags=Tag.mapped
   end
 
   private
