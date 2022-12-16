@@ -30,7 +30,6 @@ class Public::InquiriesController < ApplicationController
     InquiryMailer.send_mail(@inquiry).deliver
   end
 
-
   private
   def inquiry_params
     params.require(:inquiry).permit(:nickname, :message)
