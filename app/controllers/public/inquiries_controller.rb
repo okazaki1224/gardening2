@@ -1,16 +1,15 @@
 class Public::InquiriesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_tags
 
   def new
     #入力画面
     @inquiry=Inquiry.new
-    @tags=Tag.mapped
   end
 
   def confirm
     #確認画面
     @inquiry = Inquiry.new(inquiry_params)
-    @tags=Tag.mapped
     render :new unless @inquiry.valid?
   end
 
@@ -24,7 +23,6 @@ class Public::InquiriesController < ApplicationController
   #end
 
   def create
-    @tags=Tag.mapped
     @inquiry = Inquiry.new(inquiry_params)
     InquiryMailer.send_mail(@inquiry).deliver
     redirect_to "/inquiries/thanks"
@@ -32,6 +30,9 @@ class Public::InquiriesController < ApplicationController
 
   def thanks
     #お問い合わせありがとう画面(´･ω･`)ここまで
+  end
+
+  def set_tags
     @tags=Tag.mapped
   end
 
