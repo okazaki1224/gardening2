@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
+  default from: '自分'
   default to: ENV["TOMAIL"]
   layout 'mailer'
 end

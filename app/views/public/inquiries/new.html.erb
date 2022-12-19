@@ -16,10 +16,10 @@
       <%= form_with model: @inquiry,url: confirm_path do |f| %>
         <table>
           <tr>
-            <td><%= f.label :nickname, "お名前（必須）" %></td>
+            <td><%= f.label :name, "お名前（必須）" %></td>
           </tr>
           <tr>
-            <td><%= f.text_field :nickname, autofocus: true, class: 'form-control', placeholder: "ニックネームでOKです" %></td>
+            <td><%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: "ニックネームでOKです" %></td>
           </tr><tr>
             <td><%= f.label :message, "メッセージ（必須）" %></td>
           </tr>

@@ -38,6 +38,6 @@ class Public::InquiriesController < ApplicationController
 
   private
   def inquiry_params
-    params.require(:inquiry).permit(:nickname, :message)
+    params.require(:inquiry).permit(:name, :message)
   end
 end

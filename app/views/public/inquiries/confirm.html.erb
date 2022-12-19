@@ -18,7 +18,7 @@
           <td>お名前</td>
         </tr>
         <tr>
-          <td><%= @inquiry.nickname %></td>
+          <td><%= @inquiry.name %></td>
         </tr>
         <tr>
           <td>メッセージ</td>
@@ -28,7 +28,7 @@
         </tr>
       </table>
       <%= form_with model: @inquiry, local: true do |f| %>
-        <%= f.hidden_field :nickname %>
+        <%= f.hidden_field :name %>
         <%= f.hidden_field :message %>
         <div>
           <p>この内容で送信しますか？</p>
