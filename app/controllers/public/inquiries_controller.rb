@@ -29,7 +29,7 @@ class Public::InquiriesController < ApplicationController
   end
 
   def thanks
-    #お問い合わせありがとう画面(´･ω･`)ここまで
+    #お問い合わせありがとう画面
   end
 
   def set_tags
