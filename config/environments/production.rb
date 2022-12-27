@@ -118,15 +118,27 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-  config.action_mailer.default_url_options = { host: 'http://oniwanotomo.com'}
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-      port: 587,
-      address: 'smtp.gmail.com',
-      domain: 'smtp.gmail.com',
-      user_name: ENV['SMTP_USERNAME'],
-      password: ENV['SMTP_PASSWORD'],
-      authentication: 'plain',
-      enable_starttls_auto: true
-  }
+  #config.action_mailer.default_url_options = { host: 'http://oniwanotomo.com'}
+  #config.action_mailer.delivery_method = :smtp
+  #config.action_mailer.smtp_settings = {
+  #    port: 587,
+  #    address: 'smtp.gmail.com',
+  #    domain: 'smtp.gmail.com',
+  #    user_name: ENV['SMTP_USERNAME'],
+  #    password: ENV['SMTP_PASSWORD'],
+  #    authentication: 'plain',
+  #    enable_starttls_auto: true
+  #}
+  #EC2からのメール送信はデフォルトで制限がかかっているためAWS　SESを利用する
+  
+  Aws::Rails.add_action_mailer_delivery_method(
+    :ses, 
+    credentials = Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
+  )
+
+  config.action_mailer.default_url_options = { host: 'oniwanotomo.com' }
+  config.action_mailer.delivery_method = :ses
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.perform_caching = false
+  config.action_mailer.raise_delivery_errors = true
 end
